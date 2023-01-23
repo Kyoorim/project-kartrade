@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { variant, space } from "styled-system";
+import { variant, space, color, flexbox, layout } from "styled-system";
 
 const variants = {
   1: {
@@ -29,7 +29,10 @@ const Heading = styled(HeadingBase)(
     variants,
     prop: "level",
   }),
-  space
+  space,
+  color,
+  flexbox,
+  layout
 );
 
 export default Heading;
