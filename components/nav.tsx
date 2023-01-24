@@ -21,12 +21,15 @@ const Nav = () => {
 
 const Wrapper = styled.div`
   width: 100%;
+  max-width: 420px;
   height: 50px;
   border-bottom: 1px solid #d8d8d8;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 1em 1.5em 1em 1.5em;
+  position: fixed;
+  background-color: white;
 `;
 
 const LogoContainer = styled.section`

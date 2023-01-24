@@ -31,7 +31,7 @@ export const dummyCardInfo = [
     profileId: "kartrade3",
     infoTitle: "2020 Map Of The Soul:7 Ver3",
     infoDetail:
-      "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.",
+      "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.sit voluptatem accusantium doloremque laudantium, totam rem aperiam, ",
     price: "150",
   },
   {

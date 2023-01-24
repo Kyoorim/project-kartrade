@@ -67,7 +67,7 @@ const Main = styled.section`
 `;
 
 const HomeImage = styled.div`
-  height: 433px;
+  height: 470px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -79,12 +79,19 @@ const ImageBox = styled.div`
   flex-direction: column;
   justify-content: flex-end;
   align-items: center;
-  width: 325px;
-  height: 381.5px;
+  width: 370px;
+  height: 420px;
   background-image: url("/mainImage.svg");
   background-repeat: no-repeat;
+  background-size: cover;
+
+  @media only screen and (max-width: 800px) {
+    width: 325px;
+    height: 420px;
+  }
+
   p {
     color: white;
-    padding: 0px 20px 32.5px 20px;
+    padding: 0px 20px 25px 20px;
   }
 `;

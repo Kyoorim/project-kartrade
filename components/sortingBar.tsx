@@ -17,6 +17,7 @@ const SortingBar = () => {
 const Wrapper = styled.div`
   width: 100%;
   height: 50px;
+  margin-top: 50px;
   border-bottom: 1px solid #d8d8d8;
   display: flex;
   justify-content: space-between;
