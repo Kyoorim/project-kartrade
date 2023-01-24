@@ -4,6 +4,7 @@ import Nav from "@/components/nav";
 import SortingBar from "@/components/sortingBar";
 import styled from "styled-components";
 import { dummyCardInfo as cardInfo } from "@/asset/dummyCardInfo";
+import Footer from "@/components/footer";
 
 export default function Home() {
   return (
@@ -25,6 +26,7 @@ export default function Home() {
         {cardInfo.map((el) => (
           <CardBox key={el.id} el={el} />
         ))}
+        <Footer />
       </Main>
     </BgWrapper>
   );

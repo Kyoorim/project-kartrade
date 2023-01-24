@@ -1,6 +1,13 @@
 import React from "react";
 import styled from "styled-components";
-import { variant, space, color, flexbox, layout } from "styled-system";
+import {
+  variant,
+  space,
+  color,
+  flexbox,
+  layout,
+  typography,
+} from "styled-system";
 
 const variants = {
   1: {
@@ -19,6 +26,10 @@ const variants = {
     fontWeight: "bold",
     fontSize: "20px",
   },
+  5: {
+    fontWeight: "normal",
+    fontSize: "22px",
+  },
 };
 
 const HeadingBase = ({ level, as: Component = `h${level}`, ...props }) => (
@@ -36,7 +47,8 @@ const Heading = styled(HeadingBase)(
   space,
   color,
   flexbox,
-  layout
+  layout,
+  typography
 );
 
 export default Heading;

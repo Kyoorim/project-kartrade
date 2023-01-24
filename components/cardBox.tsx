@@ -39,7 +39,7 @@ const CardBox = ({ el }: cardInfoType) => {
           {el.infoTitle}
         </Heading>
         <InfoDetailContainer>{el.infoDetail}</InfoDetailContainer>
-        <div>USD {el.price}</div>
+        <Heading level={5}>USD {el.price}</Heading>
       </InfoContainer>
     </Wrapper>
   );
@@ -47,15 +47,16 @@ const CardBox = ({ el }: cardInfoType) => {
 
 const Wrapper = styled.div`
   width: 100%;
-  height: 637.56px;
+  height: auto;
   border-top: 1px solid #d8d8d8;
   border-bottom: 1px solid #d8d8d8;
   background-color: white;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   padding: 25px;
+  box-sizing: border-box;
 `;
 
 const PhotoContainer = styled.section`
@@ -97,16 +98,12 @@ const ProfileContainer = styled.div`
 `;
 
 const InfoContainer = styled.section`
-  div:last-child {
-    font-size: 1.25rem;
-  }
   @media only screen and (max-width: 800px) {
     width: 325px;
   }
 `;
 
 const InfoDetailContainer = styled.div`
-  /* width: 370px; */
   height: 60px;
   line-height: 1.4em;
   color: #777777;
