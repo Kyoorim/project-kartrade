@@ -8,7 +8,7 @@ import photo7 from "../public/photocard/photo7.svg";
 
 export const dummyCardInfo = [
   {
-    id: 0,
+    id: "0",
     mainImage: photo1,
     profileId: "kartrade1",
     infoTitle: "Sumi Killer of Queen Collection",
@@ -17,7 +17,7 @@ export const dummyCardInfo = [
     price: "199",
   },
   {
-    id: 1,
+    id: "1",
     mainImage: photo2,
     profileId: "kartrade2",
     infoTitle: "2022 Season Greetings",
@@ -26,7 +26,7 @@ export const dummyCardInfo = [
     price: "250",
   },
   {
-    id: 2,
+    id: "2",
     mainImage: photo3,
     profileId: "kartrade3",
     infoTitle: "2020 Map Of The Soul:7 Ver3",
@@ -35,7 +35,7 @@ export const dummyCardInfo = [
     price: "150",
   },
   {
-    id: 3,
+    id: "3",
     mainImage: photo4,
     profileId: "kartrade4",
     infoTitle: "2018 Loveyourself 'Answer' L Type",
@@ -44,7 +44,7 @@ export const dummyCardInfo = [
     price: "100",
   },
   {
-    id: 4,
+    id: "4",
     mainImage: photo5,
     profileId: "kartrade5",
     infoTitle: "Antifragile",
@@ -53,7 +53,7 @@ export const dummyCardInfo = [
     price: "220",
   },
   {
-    id: 5,
+    id: "5",
     mainImage: photo6,
     profileId: "kartrade6",
     infoTitle: "Deco Kit",
@@ -62,7 +62,7 @@ export const dummyCardInfo = [
     price: "400",
   },
   {
-    id: 6,
+    id: "6",
     mainImage: photo7,
     profileId: "kartrade7",
     infoTitle: "Soundwave Lucky Draw Round 2 Benefit Photocard",
@@ -71,7 +71,7 @@ export const dummyCardInfo = [
     price: "80",
   },
   {
-    id: 7,
+    id: "7",
     mainImage: photo1,
     profileId: "kartrade8",
     infoTitle: "Perception: Chapter Two' Makestar POB Benefit",
