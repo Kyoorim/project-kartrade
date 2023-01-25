@@ -1,13 +1,16 @@
 import styled from "styled-components";
 import Button from "./button";
+import { BsChat, BsSuitHeart } from "react-icons/bs";
 
 const BottomNav = () => {
   return (
     <Wrapper>
       <Button bgcolor="black" color="white" bdcolor="black">
-        SEND MESSAGE
+        <BsChat fill="white" /> <span>SEND MESSAGE</span>
       </Button>
-      <Button>WISH LIST</Button>
+      <Button bdcolor="#777777">
+        <BsSuitHeart /> <span>WISH LIST</span>
+      </Button>
     </Wrapper>
   );
 };
@@ -23,6 +26,24 @@ const Wrapper = styled.div`
   position: fixed;
   bottom: 0;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 8px;
+
+  div {
+    span {
+      font-size: 0.8rem;
+      font-weight: 500;
+      margin-left: 5px;
+    }
+  }
+
+  div:first-child {
+    span {
+      color: white;
+    }
+    svg {
+      width: 16px;
+      height: 16px;
+    }
+  }
 `;
 
 export default BottomNav;

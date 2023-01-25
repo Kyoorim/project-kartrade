@@ -2,17 +2,7 @@ import styled from "styled-components";
 import Image from "next/image";
 import Heading from "./heading/header";
 import Link from "next/link";
-
-export type cardInfoType = {
-  el: {
-    id: number;
-    mainImage: any;
-    profileId: string;
-    infoTitle: string;
-    infoDetail: string;
-    price: string;
-  };
-};
+import { cardInfoType } from "@/types";
 
 const CardBox = ({ el }: cardInfoType) => {
   return (

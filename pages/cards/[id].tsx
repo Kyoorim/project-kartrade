@@ -1,44 +1,56 @@
 import React from "react";
-import { withRouter } from "next/router";
-import CardBox from "@/components/cardBox";
 import Heading from "@/components/heading/header";
 import Nav from "@/components/nav";
 import SortingBar from "@/components/sortingBar";
 import styled from "styled-components";
 import Footer from "@/components/footer";
+import Image from "next/image";
+import { BsChat } from "react-icons/bs";
 
 import { getPostDetails, getPostIdList } from "../../lib/posts";
 import BottomNav from "@/components/bottomNav";
+import PhotoBox from "@/components/photoBox";
+import QuantityBox from "@/components/quantityBox";
+import SpecificDetails from "@/components/specificDetails";
+import { cardDetailInfoType } from "@/types";
 
-const CardDetail = ({
-  cardData,
-}: {
-  cardData: {
-    infoTitle: string;
-    infoDetail: string;
-    price: string;
-    profileId: string;
-    mainImage: HTMLImageElement;
-  };
-}) => {
+const CardDetail = ({ cardData }: cardDetailInfoType) => {
   return (
     <BgWrapper>
       <Main>
         <Nav />
         <SortingBar />
-        <HomeImage>
-          <Heading level={2}>{cardData.infoTitle}</Heading>
-          <Heading level={4}>
-            Inspired by my dear friend Calli, I decided to create a custom
-            photocard binder that will fit BTS mini photocards! 💜✨ I received
-            a lot of messages asking if the pockets on the first album I listed
-            were big enough to fit the official mini PCs available on Weverse
-            Shop. They were unfortunately too small, and I couldn’t seem to find
-            any suitable alternatives, so I had to make something special for
-            ARMY~! 🥰
-          </Heading>
-          <Heading level={2}>USD {cardData.price}</Heading>
-        </HomeImage>
+        <ContentWrapper>
+          <ProfileContainer>
+            <ProfileBox>
+              <Image
+                src={cardData.mainImage}
+                alt="mainImage"
+                style={{ width: "38px", height: "38px", borderRadius: "50%" }}
+              ></Image>
+              <div>@{cardData.profileId}</div>
+            </ProfileBox>
+            <MessageBox>
+              <BsChat fill="#515151" />
+              <span>Send Message</span>
+            </MessageBox>
+          </ProfileContainer>
+          <InfoContainer>
+            <Heading level={3} mb="1em">
+              {cardData.infoTitle}
+            </Heading>
+            <p>{cardData.infoDetail}</p>
+            <Heading level={3} mb="0.1em">
+              USD {cardData.price}
+            </Heading>
+            <p> Local Taxes included (where applicable) </p>
+          </InfoContainer>
+        </ContentWrapper>
+        {cardData.detailImage.map((photo) => (
+          <PhotoBox key={photo.id} photo={photo}></PhotoBox>
+        ))}
+        <QuantityBox />
+        <SpecificDetails cardData={cardData} />
         <Footer />
         <BottomNav />
       </Main>
@@ -99,14 +111,60 @@ const Main = styled.section`
   }
 `;
 
-const HomeImage = styled.div`
-  width: 370px;
-  height: 470px;
+const ContentWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding: 0 25px 0 25px;
+`;
+
+const ProfileContainer = styled.div`
+  display: flex;
+  width: 100%;
+  height: 81.41px;
+  align-items: center;
+  justify-content: space-between;
   border-bottom: 1px solid #d8d8d8;
+
+  img {
+    margin-right: 9px;
+  }
+  div,
+  span {
+    color: #515151;
+  }
+  @media only screen and (max-width: 800px) {
+    width: 325px;
+  }
+`;
+
+const ProfileBox = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+const MessageBox = styled.div`
+  display: flex;
+  align-items: center;
+  svg {
+    width: 19px;
+    height: 19px;
+    margin-right: 9px;
+  }
+`;
+
+const InfoContainer = styled.div`
+  padding: 2em 0 1em 0;
+  border-bottom: 1px solid #d8d8d8;
+  @media only screen and (max-width: 800px) {
+    width: 325px;
+  }
+  p {
+    font-weight: 400;
+    color: #777777;
+    margin-bottom: 2em;
+  }
 `;
 
 export default CardDetail;

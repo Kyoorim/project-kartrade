@@ -1,15 +1,28 @@
 import styled from "styled-components";
-import { FiChevronDown } from "react-icons/fi";
+import { FiChevronDown, FiChevronRight } from "react-icons/fi";
+import { useRouter } from "next/router";
 
 const SortingBar = () => {
+  const { asPath } = useRouter();
+
   return (
     <Wrapper>
-      <SortingContainer>
-        Sort By <FiChevronDown />
-      </SortingContainer>
-      <PriceContainer>
-        Price ($) <FiChevronDown />
-      </PriceContainer>
+      {asPath.slice(1, 6) === "cards" ? (
+        <SortingContainer>
+          <Home>Home</Home>
+          <FiChevronRight />
+          <span>Detail Page</span>
+        </SortingContainer>
+      ) : (
+        <>
+          <SortingContainer>
+            <span>Sort By</span> <FiChevronDown />
+          </SortingContainer>
+          <PriceContainer>
+            <span>Sort By</span> <FiChevronDown />
+          </PriceContainer>
+        </>
+      )}
     </Wrapper>
   );
 };
@@ -33,7 +46,9 @@ const SortingContainer = styled.section`
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  font-size: 0.8rem;
+  span {
+    font-size: 0.8rem;
+  }
 `;
 
 const PriceContainer = styled.section`
@@ -41,6 +56,10 @@ const PriceContainer = styled.section`
   justify-content: center;
   align-items: center;
   font-size: 0.8rem;
+`;
+
+const Home = styled.span`
+  color: #777777;
 `;
 
 export default SortingBar;

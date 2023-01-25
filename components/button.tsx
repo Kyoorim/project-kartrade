@@ -20,8 +20,6 @@ const Wrapper = styled.div<CustomProps>`
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 0.8rem;
-  font-weight: 500;
 `;
 
 export interface CustomProps {

@@ -5,3 +5,33 @@ export type FCC<T = object> = React.FC<
 >;
 
 export {};
+
+export type cardInfoType = {
+  el: {
+    id: string;
+    mainImage: any;
+    profileId: string;
+    infoTitle: string;
+    infoDetail: string;
+    price: string;
+  };
+};
+
+export type cardDetailInfoType = {
+  cardData: {
+    id: string;
+    mainImage: any;
+    profileId: string;
+    infoTitle: string;
+    infoDetail: string;
+    price: string;
+    detailImage: {
+      id: string;
+      image: HTMLImageElement;
+    };
+    specificDetails: {
+      id: string;
+      item: string;
+    };
+  };
+};
