@@ -2,7 +2,7 @@ import styled from "styled-components";
 import Image from "next/image";
 import Heading from "./heading/header";
 
-export type cardInfoType = {
+export type CardInfo = {
   el: {
     id: number;
     mainImage: any;
@@ -13,7 +13,7 @@ export type cardInfoType = {
   };
 };
 
-const CardBox = ({ el }: cardInfoType) => {
+const CardBox = ({ el }: CardInfo) => {
   return (
     <Wrapper>
       <PhotoContainer>
