@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { useState, useEffect } from "react";
-import { AiOutlinePlusCircle, AiOutlineMinusCircle } from "react-icons/ai";
+import { useState } from "react";
+import Image from "next/image";
 
 const QuantityBox = () => {
   const [quantity, setQuantity] = useState(0);
@@ -16,13 +16,13 @@ const QuantityBox = () => {
   return (
     <Wrapper>
       <div>Quantity</div>
-      <div onClick={removeItemHandler}>
-        <AiOutlineMinusCircle />
-      </div>
-      <div>{quantity}</div>
-      <div onClick={addItemHandler}>
-        <AiOutlinePlusCircle />
-      </div>
+      <MinusDiv onClick={removeItemHandler}>
+        <Image src="/minus.svg" alt="decrement" width={38} height={38} />
+      </MinusDiv>
+      <NumDiv>{quantity}</NumDiv>
+      <PlusDiv onClick={addItemHandler}>
+        <Image src="/plus.svg" alt="increment" width={13} height={13} />
+      </PlusDiv>
     </Wrapper>
   );
 };
@@ -37,11 +37,25 @@ const Wrapper = styled.div`
   div {
     margin-right: 30px;
   }
-  svg {
-    width: 37px;
-    height: 37px;
-    font-weight: 400;
-  }
+`;
+
+const MinusDiv = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
+const NumDiv = styled.div`
+  width: 19px;
+`;
+const PlusDiv = styled.div`
+  width: 38px;
+  height: 38px;
+  background-image: url("/plus_border.svg");
+  background-size: 38px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
 `;
 
 export default QuantityBox;
