@@ -2,9 +2,9 @@ import styled from "styled-components";
 import Image from "next/image";
 import Heading from "./heading/header";
 import Link from "next/link";
-import { cardInfoType } from "@/types";
+import { CardInfo } from "@/types";
 
-const CardBox = ({ el }: cardInfoType) => {
+const CardBox = ({ el }: CardInfo) => {
   return (
     <Wrapper>
       <PhotoContainer>

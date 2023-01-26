@@ -12,9 +12,9 @@ import BottomNav from "@/components/bottomNav";
 import PhotoBox from "@/components/photoBox";
 import QuantityBox from "@/components/quantityBox";
 import SpecificDetails from "@/components/specificDetails";
-import { cardDetailInfoType } from "@/types";
+import { CardDetailInfo } from "@/types";
 
-const CardDetail = ({ cardData }: cardDetailInfoType) => {
+const CardDetail = ({ cardData }: CardDetailInfo) => {
   return (
     <BgWrapper>
       <Main>

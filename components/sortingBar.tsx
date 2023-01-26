@@ -15,11 +15,11 @@ const SortingBar = () => {
         </SortingContainer>
       ) : (
         <>
-          <SortingContainer>
-            <span>Sort By</span> <FiChevronDown />
-          </SortingContainer>
+          {/*<SortingContainer>*/}
+          {/*  <span>Sort By</span> <FiChevronDown />*/}
+          {/*</SortingContainer>*/}
           <PriceContainer>
-            <span>Sort By</span> <FiChevronDown />
+            <span>Price ($)</span> <FiChevronDown />
           </PriceContainer>
         </>
       )}
@@ -56,6 +56,7 @@ const PriceContainer = styled.section`
   justify-content: center;
   align-items: center;
   font-size: 0.8rem;
+  font-weight: 400;
 `;
 
 const Home = styled.span`

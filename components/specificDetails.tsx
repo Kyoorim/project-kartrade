@@ -1,8 +1,8 @@
 import styled from "styled-components";
-import { cardDetailInfoType } from "@/types";
+import { CardDetailInfo } from "@/types";
 import Heading from "./heading/header";
 
-const SpecificDetails = ({ cardData }: cardDetailInfoType) => {
+const SpecificDetails = ({ cardData }: CardDetailInfo) => {
   return (
     <Wrapper>
       <Heading level={6} mb="16px">

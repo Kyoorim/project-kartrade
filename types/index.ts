@@ -6,7 +6,7 @@ export type FCC<T = object> = React.FC<
 
 export {};
 
-export type cardInfoType = {
+export type CardInfo = {
   el: {
     id: string;
     mainImage: any;
@@ -17,7 +17,7 @@ export type cardInfoType = {
   };
 };
 
-export type cardDetailInfoType = {
+export type CardDetailInfo = {
   cardData: {
     id: string;
     mainImage: any;
