@@ -1,7 +1,7 @@
 import React from "react";
 import Heading from "@/components/heading/header";
 import Nav from "@/components/nav";
-import SortingBar from "@/components/sortingBar";
+import PathBar from "@/components/pathBar";
 import styled from "styled-components";
 import Footer from "@/components/footer";
 import Image from "next/image";
@@ -19,7 +19,7 @@ const CardDetail = ({ cardData }: CardDetailInfo) => {
     <BgWrapper>
       <Main>
         <Nav />
-        <SortingBar />
+        <PathBar />
         <ContentWrapper>
           <ProfileContainer>
             <ProfileBox>
