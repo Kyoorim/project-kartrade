@@ -16,7 +16,7 @@ const Footer = () => {
         <li>CONTACT</li>
         <li>PRIVACY POLICY</li>
       </ul>
-      <div>© 2021 KARTRADE LIMITED - ALL RIGHTS RESERVED.</div>
+      <div>© 2023 KARTRADE LIMITED - ALL RIGHTS RESERVED.</div>
     </Wrapper>
   );
 };
