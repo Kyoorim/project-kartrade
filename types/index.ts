@@ -13,7 +13,7 @@ export type CardInfo = {
     profileId: string;
     infoTitle: string;
     infoDetail: string;
-    price: string;
+    price: number;
   };
 };
 
@@ -24,7 +24,7 @@ export type CardDetailInfo = {
     profileId: string;
     infoTitle: string;
     infoDetail: string;
-    price: string;
+    price: number;
     detailImage: {
       id: string;
       image: HTMLImageElement;

@@ -3,11 +3,13 @@ import Image from "next/image";
 import logo from "../public/logo.svg";
 import brand from "../public/brand.svg";
 import search from "../public/search.svg";
+import { useRouter } from "next/router";
 
 const Nav = () => {
+  const router = useRouter();
   return (
     <Wrapper>
-      <LogoContainer>
+      <LogoContainer onClick={() => router.push("/")}>
         <Image src={logo} alt="logo" style={{ height: "29px" }}></Image>
         <Image src={brand} alt="brand" style={{ height: "15.4px" }}></Image>
       </LogoContainer>
@@ -37,6 +39,7 @@ const LogoContainer = styled.section`
   height: 29px;
   display: flex;
   align-items: center;
+  cursor: pointer;
 `;
 
 const MenuContainer = styled.section`
