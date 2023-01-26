@@ -1,29 +1,20 @@
 import styled from "styled-components";
 import Image from "next/image";
 import Heading from "./heading/header";
-
-export type CardInfo = {
-  el: {
-    id: number;
-    mainImage: any;
-    profileId: string;
-    infoTitle: string;
-    infoDetail: string;
-    price: string;
-  };
-};
+import Link from "next/link";
+import { CardInfo } from "@/types";
 
 const CardBox = ({ el }: CardInfo) => {
   return (
     <Wrapper>
       <PhotoContainer>
-        <div>
+        <Link href={`/cards/${el.id}`}>
           <Image
             src={el.mainImage}
             alt="mainImage"
             style={{ maxWidth: "370px", minHeight: "325px" }}
           ></Image>
-        </div>
+        </Link>
         <ProfileContainer>
           <Image
             src={el.mainImage}
