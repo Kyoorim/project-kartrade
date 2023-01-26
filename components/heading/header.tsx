@@ -30,6 +30,10 @@ const variants = {
     fontWeight: "normal",
     fontSize: "22px",
   },
+  6: {
+    fontWeight: "bold",
+    fontSize: "16px",
+  },
 };
 
 const HeadingBase = ({ level, as: Component = `h${level}`, ...props }) => (
