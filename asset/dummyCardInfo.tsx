@@ -5,14 +5,14 @@ import photo4 from "../public/photocard/photo4.svg";
 import photo5 from "../public/photocard/photo5.svg";
 import photo6 from "../public/photocard/photo6.svg";
 import photo7 from "../public/photocard/photo7.svg";
-import {CardInfo} from "@/types";
+import { CardInfo } from "@/types";
 
 export const dummyCardInfo: CardInfo[] = [
   {
     id: "1",
     mainImage: photo1,
     profileId: "kartrade1",
-    infoTitle: "Sumi Killer of Queen Collection",
+    infoTitle: "Deco-Sumi Killer of Queen Collection",
     infoDetail:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
     price: 199,
@@ -93,7 +93,7 @@ export const dummyCardInfo: CardInfo[] = [
     id: "5",
     mainImage: photo5,
     profileId: "kartrade5",
-    infoTitle: "Antifragile",
+    infoTitle: "Deco-Antifragile",
     infoDetail:
       "Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur",
     price: 220,

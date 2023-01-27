@@ -1,32 +1,61 @@
-import React, { useState } from "react";
+import { useEffect, useState } from "react";
+import Nav from "@/components/nav";
 import CardBox from "@/components/cardBox";
 import Heading from "@/components/heading/header";
-import {CardDetailInfo, CardInfo} from "@/types";
+import { CardInfo } from "@/types";
 import styled from "styled-components";
-import {useRouter} from "next/router";
+import { useRouter } from "next/router";
+import search from "../public/search.svg";
+import Image from "next/image";
 
-const MainBody: React.FC<{cardInfo: CardInfo[]}> = ({cardInfo}) => {
+const MainBody: React.FC<{ cardInfo: CardInfo[] }> = ({ cardInfo }) => {
+  const [searchValue, setSearchValue] = useState("");
   const router = useRouter();
-  const sort = router.query;
+  const key = Object.keys(router.query);
 
-  const onSelectChange = (e) => {
+  const onSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const search = e.target.value;
+    if (search) {
+      router.push(`/?search=${search}`);
+      setSearchValue(search);
+    } else setSearchValue("");
+  };
+
+  const onSelectChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const sortDirection = e.target.value;
-    if (sortDirection === 'default') {
+    if (sortDirection === "default") {
       router.push("/");
     } else {
       router.push(`/?sort=${sortDirection}`);
     }
+    // if (keyword) {
+    //   console.log(router);
+    // }
+    // else if (keyword) {
+    //   router.push(router.asPath + `/?sort=${sortDirection}`);
+    // }
   };
 
-  const isHome = Object.keys(sort).length === 0;
+  const isHome = Object.keys(key).length === 0;
 
   return (
     <>
+      <Nav />
       <Wrapper>
+        <SearchDiv>
+          <Image src={search} alt="search" style={{ color: "red" }}></Image>
+          <input
+            type="text"
+            name="search"
+            placeholder="Search by title..."
+            onChange={onSearchChange}
+            // value={searchValue}
+          ></input>
+        </SearchDiv>
         <Select name="price" defaultValue="default" onChange={onSelectChange}>
           <option value="default">Price ($)</option>
-          <option value={'price_asc'}>Price: low to high</option>
-          <option value={'price_desc'}>Price: high to low</option>
+          <option value={"price_asc"}>Price: low to high</option>
+          <option value={"price_desc"}>Price: high to low</option>
         </Select>
       </Wrapper>
       {isHome && (
@@ -42,27 +71,59 @@ const MainBody: React.FC<{cardInfo: CardInfo[]}> = ({cardInfo}) => {
           </ImageBox>
         </HomeImage>
       )}
-      {cardInfo.map((c) => (
-        <CardBox key={c.id} el={c} />
-      ))}
+      {cardInfo
+        .filter((val) => {
+          if (key.length === 0 || key[0] === "sort") return val;
+          else if (
+            key[0] === "search" &&
+            (val.infoTitle.toLowerCase().includes(searchValue) ||
+              val.infoTitle.toUpperCase().includes(searchValue))
+          )
+            return val;
+        })
+        .map((c) => (
+          <CardBox key={c.id} el={c} />
+        ))}
     </>
   );
 };
 
 const Wrapper = styled.div`
   width: 100%;
-  height: 50px;
+  height: auto;
   margin-top: 50px;
   border-bottom: 1px solid #d8d8d8;
   display: flex;
+  flex-direction: column;
   justify-content: flex-start;
+  align-items: flex-start;
+  padding: 0 1.5em 0 1.5em;
+`;
+
+const SearchDiv = styled.div`
+  width: 100%;
+  display: flex;
   align-items: center;
-  padding: 1em 1.5em 1em 1.5em;
+  border-bottom: 1px solid #d8d8d8;
+
+  img {
+    height: 17px;
+    margin-right: 5px;
+  }
+
+  input {
+    padding: 1em 0 1em 4px;
+    color: #646464;
+    font-size: 1rem;
+  }
 `;
 
 const Select = styled.select`
+  display: inline-block;
   border: none;
   width: auto;
+  font-size: 1rem;
+  padding: 1em 0 1em 0;
   &:focus {
     outline: none;
   }
