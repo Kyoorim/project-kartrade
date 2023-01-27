@@ -3,7 +3,7 @@ import { useState } from "react";
 import Image from "next/image";
 
 const QuantityBox = () => {
-  const [quantity, setQuantity] = useState(0);
+  const [quantity, setQuantity] = useState(1);
 
   const addItemHandler = () => {
     setQuantity(quantity + 1);
