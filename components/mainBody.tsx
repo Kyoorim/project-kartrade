@@ -1,34 +1,35 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import CardBox from "@/components/cardBox";
 import Heading from "@/components/heading/header";
-import { CardInfo } from "@/types";
+import {CardDetailInfo, CardInfo} from "@/types";
 import styled from "styled-components";
+import {useRouter} from "next/router";
 
-const MainBody = ({ el }: CardInfo) => {
-  const [sortedData, setSortedData] = useState(el);
-  const [sortSelect, setSortSelect] = useState(false);
+const MainBody: React.FC<{cardInfo: CardInfo[]}> = ({cardInfo}) => {
+  const router = useRouter();
+  const sort = router.query;
 
   const onSelectChange = (e) => {
     const sortDirection = e.target.value;
-    const copyData = [...sortedData];
-
-    copyData.sort((a, b) => {
-      return sortDirection === "0" ? a.price - b.price : b.price - a.price;
-    });
-    setSortedData(copyData);
-    setSortSelect(true);
+    if (sortDirection === 'default') {
+      router.push("/");
+    } else {
+      router.push(`/?sort=${sortDirection}`);
+    }
   };
+
+  const isHome = Object.keys(sort).length === 0;
 
   return (
     <>
       <Wrapper>
         <Select name="price" defaultValue="default" onChange={onSelectChange}>
           <option value="default">Price ($)</option>
-          <option value={0}>Price:low to high</option>
-          <option value={1}>Price:high to low</option>
+          <option value={'price_asc'}>Price: low to high</option>
+          <option value={'price_desc'}>Price: high to low</option>
         </Select>
       </Wrapper>
-      {!sortSelect && (
+      {isHome && (
         <HomeImage>
           <ImageBox>
             <Heading level={2} color="white" px="20px">
@@ -41,8 +42,8 @@ const MainBody = ({ el }: CardInfo) => {
           </ImageBox>
         </HomeImage>
       )}
-      {sortedData.map((el) => (
-        <CardBox key={el.id} el={el} />
+      {cardInfo.map((c) => (
+        <CardBox key={c.id} el={c} />
       ))}
     </>
   );

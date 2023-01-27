@@ -27,6 +27,7 @@ const Wrapper = styled.div`
 
   svg {
     margin-left: 5px;
+    margin-right: 5px;
   }
 `;
 
