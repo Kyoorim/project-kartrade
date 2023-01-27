@@ -1,13 +1,13 @@
 @font-face {
-  font-family: "NeueHaasUnica-Medium";
-  src: url("../asset/font/NeueHaasUnica-Medium.ttf");
+  font-family: "NeueHaasUnica-Light";
+  src: url("../asset/font/NeueHaasUnica-Light.ttf");
   font-style: normal;
 }
 
 @font-face {
   font-family: "NeueHaasUnica-Medium";
-  src: url("../asset/font/NeueHaasUnica-Light.ttf");
-  font-style: normal;
+  src: url("../asset/font/NeueHaasUnica-Medium.ttf");
+  font-weight: bold;
 }
 
 :root {
