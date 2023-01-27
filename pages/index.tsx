@@ -1,31 +1,16 @@
-import CardBox from "@/components/cardBox";
-import Heading from "@/components/heading/header";
 import Nav from "@/components/nav";
-import SortingBar from "@/components/sortingBar";
+import MainBody from "@/components/mainBody";
 import styled from "styled-components";
 import { dummyCardInfo as cardInfo } from "@/asset/dummyCardInfo";
 import Footer from "@/components/footer";
+import {CardInfo} from "@/types";
 
-export default function Home() {
+export default function Home(data: {cardInfo: CardInfo[]}) {
   return (
     <BgWrapper>
       <Main>
         <Nav />
-        <SortingBar />
-        <HomeImage>
-          <ImageBox>
-            <Heading level={2} color="white" px="20px">
-              We are creative traders
-            </Heading>
-            <p>
-              Sell, Trade, Buy all Kpop photocards across the World. We are here
-              to enable K-Pop fans to instantly trade cards like never before
-            </p>
-          </ImageBox>
-        </HomeImage>
-        {cardInfo.map((el) => (
-          <CardBox key={el.id} el={el} />
-        ))}
+        <MainBody cardInfo={data.cardInfo} />
         <Footer />
       </Main>
     </BgWrapper>
@@ -68,32 +53,23 @@ const Main = styled.section`
   }
 `;
 
-const HomeImage = styled.div`
-  height: 470px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-bottom: 1px solid #d8d8d8;
-`;
+export async function getServerSideProps(context) {
+    if (Object.keys(context.query).length === 0) {
+        return {
+            props: {
+                cardInfo
+            },
+        }
+    } else {
+        const sortDirection = context.query.sort;
+        cardInfo.sort((a, b) => {
+            return sortDirection === "price_asc" ? a.price - b.price : b.price - a.price;
+        });
 
-const ImageBox = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  align-items: center;
-  width: 370px;
-  height: 420px;
-  background-image: url("/mainImage.svg");
-  background-repeat: no-repeat;
-  background-size: cover;
-
-  @media only screen and (max-width: 800px) {
-    width: 325px;
-    height: 420px;
-  }
-
-  p {
-    color: white;
-    padding: 0px 20px 25px 20px;
-  }
-`;
+        return {
+            props: {
+                cardInfo
+            },
+        }
+    }
+}
