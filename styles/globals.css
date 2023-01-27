@@ -51,3 +51,7 @@ button {
   background-color: none;
   cursor: pointer;
 }
+
+input {
+  all: unset;
+}
