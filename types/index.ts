@@ -7,14 +7,20 @@ export type FCC<T = object> = React.FC<
 export {};
 
 export type CardInfo = {
-  el: {
     id: string;
     mainImage: any;
     profileId: string;
     infoTitle: string;
     infoDetail: string;
-    price: string;
-  };
+    price: number;
+    detailImage: {
+      id: string;
+      image: HTMLImageElement;
+    }[]
+    specificDetails: {
+      id: string;
+      item: string;
+    }[]
 };
 
 export type CardDetailInfo = {
@@ -24,7 +30,7 @@ export type CardDetailInfo = {
     profileId: string;
     infoTitle: string;
     infoDetail: string;
-    price: string;
+    price: number;
     detailImage: {
       id: string;
       image: HTMLImageElement;
