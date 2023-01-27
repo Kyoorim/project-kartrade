@@ -5,8 +5,9 @@ import photo4 from "../public/photocard/photo4.svg";
 import photo5 from "../public/photocard/photo5.svg";
 import photo6 from "../public/photocard/photo6.svg";
 import photo7 from "../public/photocard/photo7.svg";
+import {CardInfo} from "@/types";
 
-export const dummyCardInfo = [
+export const dummyCardInfo: CardInfo[] = [
   {
     id: "1",
     mainImage: photo1,
