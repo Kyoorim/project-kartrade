@@ -1,15 +1,13 @@
-import Nav from "@/components/nav";
 import MainBody from "@/components/mainBody";
 import styled from "styled-components";
 import { dummyCardInfo as cardInfo } from "@/asset/dummyCardInfo";
 import Footer from "@/components/footer";
-import {CardInfo} from "@/types";
+import { CardInfo } from "@/types";
 
-export default function Home(data: {cardInfo: CardInfo[]}) {
+export default function Home(data: { cardInfo: CardInfo[] }) {
   return (
     <BgWrapper>
       <Main>
-        <Nav />
         <MainBody cardInfo={data.cardInfo} />
         <Footer />
       </Main>
@@ -54,22 +52,37 @@ const Main = styled.section`
 `;
 
 export async function getServerSideProps(context) {
-    if (Object.keys(context.query).length === 0) {
-        return {
-            props: {
-                cardInfo
-            },
-        }
-    } else {
-        const sortDirection = context.query.sort;
-        cardInfo.sort((a, b) => {
-            return sortDirection === "price_asc" ? a.price - b.price : b.price - a.price;
-        });
+  const key = Object.keys(context.query);
+  if (key.length === 0) {
+    return {
+      props: {
+        cardInfo,
+      },
+    };
+  } else {
+    const sortDirection = context.query.sort;
+    cardInfo.sort((a, b) => {
+      return sortDirection === "price_asc"
+        ? a.price - b.price
+        : b.price - a.price;
+    });
+    return {
+      props: {
+        cardInfo,
+      },
+    };
+  }
 
-        return {
-            props: {
-                cardInfo
-            },
-        }
-    }
+  // else if (key[0] === "search") {
+  //   const searchTerm = context.query.search;
+
+  //   const copiedCardInfo = cardInfo.filter((c) => {
+  //     return c.infoTitle.includes(searchTerm[0]);
+  //   });
+  //   return {
+  //     props: {
+  //       copiedCardInfo,
+  //     },
+  //   };
+  // }
 }
