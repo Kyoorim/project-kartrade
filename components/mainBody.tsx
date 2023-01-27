@@ -82,7 +82,7 @@ const MainBody: React.FC<{ cardInfo: CardInfo[] }> = ({ cardInfo }) => {
             return val;
         })
         .map((c) => (
-          <CardBox key={c.id} el={c} />
+          <CardBox key={c.id} cardInfo={c} />
         ))}
     </>
   );

@@ -4,33 +4,33 @@ import Heading from "./heading/header";
 import Link from "next/link";
 import { CardInfo } from "@/types";
 
-const CardBox = ({ el }: CardInfo) => {
+const CardBox: React.FC<{ cardInfo: CardInfo }> = ({ cardInfo }) => {
   return (
     <Wrapper>
       <PhotoContainer>
-        <Link href={`/cards/${el.id}`}>
+        <Link href={`/cards/${cardInfo.id}`}>
           <Image
-            src={el.mainImage}
+            src={cardInfo.mainImage}
             alt="mainImage"
             style={{ maxWidth: "370px", minHeight: "325px" }}
           ></Image>
         </Link>
         <ProfileContainer>
           <Image
-            src={el.mainImage}
+            src={cardInfo.mainImage}
             alt="mainImage"
             style={{ width: "38px", height: "38px", borderRadius: "50%" }}
           ></Image>
 
-          <div>@{el.profileId}</div>
+          <div>@{cardInfo.profileId}</div>
         </ProfileContainer>
       </PhotoContainer>
       <InfoContainer>
         <Heading level={4} pt={["1.4em", "1.3em", "1em"]} pb="11px">
-          {el.infoTitle}
+          {cardInfo.infoTitle}
         </Heading>
-        <InfoDetailContainer>{el.infoDetail}</InfoDetailContainer>
-        <Heading level={5}>USD {el.price}</Heading>
+        <InfoDetailContainer>{cardInfo.infoDetail}</InfoDetailContainer>
+        <Heading level={5}>USD {cardInfo.price}</Heading>
       </InfoContainer>
     </Wrapper>
   );
