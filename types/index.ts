@@ -22,22 +22,3 @@ export type CardInfo = {
       item: string;
     }[]
 };
-
-export type CardDetailInfo = {
-  cardData: {
-    id: string;
-    mainImage: any;
-    profileId: string;
-    infoTitle: string;
-    infoDetail: string;
-    price: number;
-    detailImage: {
-      id: string;
-      image: HTMLImageElement;
-    };
-    specificDetails: {
-      id: string;
-      item: string;
-    };
-  };
-};
