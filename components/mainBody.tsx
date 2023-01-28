@@ -21,7 +21,7 @@ const MainBody: React.FC<{ cardInfo: CardInfo[] }> = ({ cardInfo }) => {
     } else setSearchValue("");
   };
 
-  const onSelectChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const sortDirection = e.target.value;
     if (sortDirection === "default") {
       router.push("/");
