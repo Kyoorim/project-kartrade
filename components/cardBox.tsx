@@ -3,8 +3,9 @@ import Image from "next/image";
 import Heading from "./heading/header";
 import Link from "next/link";
 import { CardInfo } from "@/types";
+import React from "react";
 
-const CardBox = ({ el }: CardInfo) => {
+const CardBox: React.FC<{cardData: CardInfo}> = ({cardData: el}) => {
   return (
     <Wrapper>
       <PhotoContainer>

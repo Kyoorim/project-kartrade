@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { dummyCardInfo as cardInfo } from "@/asset/dummyCardInfo";
 import Footer from "@/components/footer";
 import { CardInfo } from "@/types";
+import {InferGetServerSidePropsType} from "next";
 
 export default function Home(data: { cardInfo: CardInfo[] }) {
   return (
@@ -51,7 +52,7 @@ const Main = styled.section`
   }
 `;
 
-export async function getServerSideProps(context) {
+export async function getServerSideProps(context: InferGetServerSidePropsType<any>) {
   const key = Object.keys(context.query);
   if (key.length === 0) {
     return {

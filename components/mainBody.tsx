@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, {ChangeEventHandler, useEffect, useState} from "react";
 import Nav from "@/components/nav";
 import CardBox from "@/components/cardBox";
 import Heading from "@/components/heading/header";
@@ -21,7 +21,7 @@ const MainBody: React.FC<{ cardInfo: CardInfo[] }> = ({ cardInfo }) => {
     } else setSearchValue("");
   };
 
-  const onSelectChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onSelectChange: ChangeEventHandler<HTMLSelectElement> = (e) => {
     const sortDirection = e.target.value;
     if (sortDirection === "default") {
       router.push("/");
@@ -82,7 +82,7 @@ const MainBody: React.FC<{ cardInfo: CardInfo[] }> = ({ cardInfo }) => {
             return val;
         })
         .map((c) => (
-          <CardBox key={c.id} el={c} />
+          <CardBox key={c.id} cardData={c} />
         ))}
     </>
   );
