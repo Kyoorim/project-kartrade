@@ -1,8 +1,7 @@
 import { dummyCardInfo } from "@/asset/dummyCardInfo";
 
-export async function getPostIdList() {
-  const cardInfo = dummyCardInfo;
-  return cardInfo.map((card) => {
+export function getPostIdList() {
+  return dummyCardInfo.map((card) => {
     return {
       params: {
         id: card.id,
@@ -11,16 +10,9 @@ export async function getPostIdList() {
   });
 }
 
-export async function getPostDetails(id: string) {
-  const cardInfo = dummyCardInfo;
-
+export function getPostDetails(id: string) {
   return {
+    ...dummyCardInfo[parseInt(id) - 1],
     id,
-    ...(cardInfo[id] as {
-      infoTitle: string;
-      infoDetail: string;
-      price: string;
-      profileId: string;
-    }),
   };
 }
