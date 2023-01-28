@@ -8,6 +8,7 @@ import {
   layout,
   typography,
 } from "styled-system";
+import {FCC} from "@/types";
 
 const variants = {
   1: {
@@ -36,7 +37,7 @@ const variants = {
   },
 };
 
-const HeadingBase = ({ level, as: Component = `h${level}`, ...props }) => (
+const HeadingBase: FCC<any> = ({ level, as: Component = `h${level}`, ...props }) => (
   <Component {...props} />
 );
 
