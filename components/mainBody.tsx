@@ -41,7 +41,6 @@ const MainBody: React.FC<{ cardInfo: CardInfo[] }> = ({ cardInfo }) => {
   return (
     <>
       <Nav />
-      {/* <Wrapper> */}
       <SearchDiv>
         <Image src={search} alt="search" style={{ color: "red" }}></Image>
         <input
@@ -57,7 +56,6 @@ const MainBody: React.FC<{ cardInfo: CardInfo[] }> = ({ cardInfo }) => {
           <option value={"price_desc"}>Price: high to low</option>
         </Select>
       </SearchDiv>
-      {/* </Wrapper> */}
       {isHome && (
         <HomeImage>
           <ImageBox>
@@ -114,7 +112,7 @@ const Select = styled.select`
   border: none;
   width: auto;
   height: auto;
-  font-size: 1rem;
+  font-size: 0.8rem;
   padding: 1em 0 1em 0;
   color: #646464;
   &:focus {
