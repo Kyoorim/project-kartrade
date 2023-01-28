@@ -36,9 +36,10 @@ const variants = {
   },
 };
 
-const HeadingBase = ({ level, as: Component = `h${level}`, ...props }) => (
-  <Component {...props} />
-);
+const HeadingBase = (
+  { level }: { level: number },
+  { as: Component = `h${level}`, ...props }
+) => <Component {...props} />;
 
 const Heading = styled(HeadingBase)(
   {
