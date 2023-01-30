@@ -7,6 +7,10 @@ import { useRouter } from "next/router";
 const Nav = () => {
   const router = useRouter();
 
+  const onClick = () => {
+
+  }
+
   return (
     <>
       <Wrapper>
@@ -14,6 +18,9 @@ const Nav = () => {
           <Image src={logo} alt="logo" style={{ height: "29px" }}></Image>
           <Image src={brand} alt="brand" style={{ height: "15.4px" }}></Image>
         </LogoContainer>
+
+        <div onClick={onClick} style={{cursor: 'pointer', backgroundColor: 'gray', width: 100, height: 100}}>
+        </div>
         <MenuBar></MenuBar>
       </Wrapper>
     </>
