@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import Nav from "@/components/nav";
 import CardBox from "@/components/cardBox";
 import Heading from "@/components/heading/header";
@@ -7,6 +7,7 @@ import styled from "styled-components";
 import { useRouter } from "next/router";
 import search from "../public/search.svg";
 import Image from "next/image";
+import queryString from 'query-string';
 
 const MainBody: React.FC<{ cardInfo: CardInfo[] }> = ({ cardInfo }) => {
   const [searchValue, setSearchValue] = useState("");
@@ -15,10 +16,13 @@ const MainBody: React.FC<{ cardInfo: CardInfo[] }> = ({ cardInfo }) => {
 
   const onSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const search = e.target.value;
+    setSearchValue(search);
+
     if (search) {
       router.push(`/?search=${search}`);
-      setSearchValue(search);
-    } else setSearchValue("");
+    } else {
+      router.push('/');
+    }
   };
 
   const onSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -48,7 +52,7 @@ const MainBody: React.FC<{ cardInfo: CardInfo[] }> = ({ cardInfo }) => {
           name="search"
           placeholder="Search by title..."
           onChange={onSearchChange}
-          // value={searchValue}
+          value={searchValue}
         ></input>
         <Select name="price" defaultValue="default" onChange={onSelectChange}>
           <option value="default">Price ($)</option>
