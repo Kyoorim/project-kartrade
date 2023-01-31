@@ -76,11 +76,12 @@ const SortDiv = styled.div`
 
   select {
     display: inline-block;
+    align-items: center;
     border: none;
     width: auto;
     height: auto;
     font-size: 0.8rem;
-    padding: 1.5em 0 1em 0;
+    padding: 1em 0 1em 0;
     color: #646464;
     &:focus {
       outline: none;
