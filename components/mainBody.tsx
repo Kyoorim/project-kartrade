@@ -83,6 +83,7 @@ const SortDiv = styled.div`
     font-size: 0.8rem;
     padding: 1em 0 1em 0;
     color: #646464;
+    background-color: white;
     &:focus {
       outline: none;
     }
