@@ -5,25 +5,12 @@ import Heading from "@/components/heading/header";
 import { CardInfo } from "@/types";
 import styled from "styled-components";
 import { useRouter } from "next/router";
-import search from "../public/search.svg";
-import Image from "next/image";
-import queryString from 'query-string';
+import queryString from "query-string";
 
 const MainBody: React.FC<{ cardInfo: CardInfo[] }> = ({ cardInfo }) => {
   const [searchValue, setSearchValue] = useState("");
   const router = useRouter();
   const key = Object.keys(router.query);
-
-  const onSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const search = e.target.value;
-    setSearchValue(search);
-
-    if (search) {
-      router.push(`/?search=${search}`);
-    } else {
-      router.push('/');
-    }
-  };
 
   const onSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const sortDirection = e.target.value;
@@ -32,12 +19,6 @@ const MainBody: React.FC<{ cardInfo: CardInfo[] }> = ({ cardInfo }) => {
     } else {
       router.push(`/?sort=${sortDirection}`);
     }
-    // if (keyword) {
-    //   console.log(router);
-    // }
-    // else if (keyword) {
-    //   router.push(router.asPath + `/?sort=${sortDirection}`);
-    // }
   };
 
   const isHome = Object.keys(key).length === 0;
@@ -45,21 +26,13 @@ const MainBody: React.FC<{ cardInfo: CardInfo[] }> = ({ cardInfo }) => {
   return (
     <>
       <Nav />
-      <SearchDiv>
-        <Image src={search} alt="search" style={{ color: "red" }}></Image>
-        <input
-          type="text"
-          name="search"
-          placeholder="Search by title..."
-          onChange={onSearchChange}
-          value={searchValue}
-        ></input>
-        <Select name="price" defaultValue="default" onChange={onSelectChange}>
+      <SortDiv>
+        <select name="price" defaultValue="default" onChange={onSelectChange}>
           <option value="default">Price ($)</option>
           <option value={"price_asc"}>Price: low to high</option>
           <option value={"price_desc"}>Price: high to low</option>
-        </Select>
-      </SearchDiv>
+        </select>
+      </SortDiv>
       {isHome && (
         <HomeImage>
           <ImageBox>
@@ -90,37 +63,28 @@ const MainBody: React.FC<{ cardInfo: CardInfo[] }> = ({ cardInfo }) => {
   );
 };
 
-const SearchDiv = styled.div`
+const SortDiv = styled.div`
   width: 100%;
+  height: 50px;
   margin-top: 50px;
   display: flex;
   align-items: center;
   justify-content: flex-start;
   padding: 0 1.5em 0 1.5em;
   border-bottom: 1px solid #d8d8d8;
+  box-sizing: border-box;
 
-  img {
+  select {
+    display: inline-block;
+    border: none;
+    width: auto;
     height: auto;
-  }
-
-  input {
-    width: 100%;
-    padding: 1em 0 1em 4px;
+    font-size: 0.8rem;
+    padding: 1.5em 0 1em 0;
     color: #646464;
-    font-size: 1rem;
-  }
-`;
-
-const Select = styled.select`
-  display: inline-block;
-  border: none;
-  width: auto;
-  height: auto;
-  font-size: 0.8rem;
-  padding: 1em 0 1em 0;
-  color: #646464;
-  &:focus {
-    outline: none;
+    &:focus {
+      outline: none;
+    }
   }
 `;
 
