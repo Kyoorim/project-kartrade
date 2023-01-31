@@ -18,11 +18,11 @@ const Nav = () => {
   const onSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const search = e.target.value;
     setSearchValue(search);
+  };
 
-    if (search) {
-      router.push(`/?search=${search}`);
-    } else {
-      router.push("/");
+  const keyPressHandler = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      router.push(`/?search=${searchValue}`);
     }
   };
 
@@ -50,6 +50,7 @@ const Nav = () => {
             placeholder="Search by title..."
             onChange={onSearchChange}
             value={searchValue}
+            onKeyPress={keyPressHandler}
           ></input>
         </SearchBar>
       </Wrapper>
