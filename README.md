@@ -5,6 +5,7 @@
 |<img width="1437" alt="kartrade2" src="https://user-images.githubusercontent.com/86146661/215962003-52ad6c23-66e3-4b46-9bb4-2fa98244af1d.png">|<img width="1029" alt="kartrade3" src="https://user-images.githubusercontent.com/86146661/215962013-262a9222-776b-4731-9678-f22a74fc89fe.png">|
 
 > 개발기간: 2022.01.23 ~ 2022.02.01
+> 
 > 배포링크: 
 
 <br/>
