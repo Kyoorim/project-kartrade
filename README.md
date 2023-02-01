@@ -1,39 +1,35 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# kartrade - 아이돌 포토카드 거래사이트
 
-## Getting Started
+|웹 화면|모바일용 화면|
+|--|--|
+|<img width="1437" alt="kartrade2" src="https://user-images.githubusercontent.com/86146661/215962003-52ad6c23-66e3-4b46-9bb4-2fa98244af1d.png">|<img width="1029" alt="kartrade3" src="https://user-images.githubusercontent.com/86146661/215962013-262a9222-776b-4731-9678-f22a74fc89fe.png">|
 
-First, run the development server:
+> 개발기간: 2022.01.23 ~ 2022.02.01
+> 배포링크: 
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+<br/>
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🥑프로젝트 소개
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+- next.js와 typescript로 구현한 포토카드 거래 사이트입니다. 
+- 헤딩 포토카드를 클릭하면 상세 페이지로 이동할 수 있습니다.
+- 검색기능 및 가격순 정렬을 설정할 수 있고 동적라우팅을 구현했습니다. 
+- 반응형으로 구현했습니다. 
+- figma로 미리 작업되어있는 디자인을 그대로 구현했습니다. 
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+<br/>
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+## 👩🏻‍💻 사용한 기술
+>
+<img src="https://img.shields.io/badge/mac os-000000?style=for-the-badge&logo=macos&logoColor=white"> <img src="https://img.shields.io/badge/google chrome-4285F4?style=for-the-badge&logo=google%20chrome&logoColor=white"> <img src="https://img.shields.io/badge/visual studio code-007ACC?style=for-the-badge&logo=visual studio code&logoColor=white"></br>
+<img src="https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=react&logoColor=white"> <img src="https://img.shields.io/badge/typescript-3178C6?style=for-the-badge&logo=typescript&logoColor=white"> <img src="https://img.shields.io/badge/styled components-DB7093?style=for-the-badge&logo=styled-components&logoColor=white"/>
+<img src="https://img.shields.io/badge/vercel-000000?style=for-the-badge&logo=vercel&logoColor=white">
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+<br/>
 
-## Learn More
 
-To learn more about Next.js, take a look at the following resources:
+## ✨ 아쉬운 점 및 향후 추가될 기능
+- 로그인, 회원가입 및 마이페이지 기능 구현
+- 장바구니 화면 구현
+- 주문 화면 구현
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
-# project-kartrade
