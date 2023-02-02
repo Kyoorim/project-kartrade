@@ -1,11 +1,11 @@
 @font-face {
-  font-family: "NeueHaasUnica-Light";
+  font-family: "NeueHaasUnica";
   src: url("../asset/font/NeueHaasUnica-Light.ttf");
   font-style: normal;
 }
 
 @font-face {
-  font-family: "NeueHaasUnica-Medium";
+  font-family: "NeueHaasUnica";
   src: url("../asset/font/NeueHaasUnica-Medium.ttf");
   font-weight: bold;
 }
@@ -18,8 +18,7 @@
   box-sizing: border-box;
   padding: 0;
   margin: 0;
-  font-family: "NeueHaasUnica-Light", sans-serif;
-  font-weight: 500;
+  font-family: "NeueHaasUnica", sans-serif;
   font-style: normal;
   color: #1a1a1a;
   list-style: none;
