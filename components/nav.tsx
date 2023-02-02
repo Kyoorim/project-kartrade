@@ -22,6 +22,8 @@ const Nav = () => {
 
   const keyPressHandler = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
+      setSearchValue("");
+      setIsOpened(false)
       router.push(`/?search=${searchValue}`);
     }
   };
