@@ -6,7 +6,7 @@
 
 > 개발기간: 2022.01.23 ~ 2022.02.01
 > 
-> 배포링크: 
+> <a href="https://project-kartrade-19rt-opdq13wi3-kyoorim.vercel.app/">배포링크 바로 가기</a> 
 
 <br/>
 
