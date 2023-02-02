@@ -15,9 +15,14 @@ const MainBody: React.FC<{ cardInfo: CardInfo[] }> = ({ cardInfo }) => {
   const onSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const sortDirection = e.target.value;
     if (sortDirection === "default") {
-      router.push("/");
+      const params = queryString.stringify(router.query);
+      // search="Deco"
+      router.push(`/?${params}`);
     } else {
-      router.push(`/?sort=${sortDirection}`);
+      // case 1: sort=price_asc&search=deco -> sort=price_desc&search=deco
+      // case 2: search=deco&page=1&page_size=5 -> sort=price_asc&search=deco&search=deco&page=1&page_size=5
+      const params = queryString.stringify({...router.query, sort: sortDirection});
+      router.push(`/?${params}`);
     }
   };
 
