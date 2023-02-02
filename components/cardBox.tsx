@@ -39,7 +39,6 @@ const CardBox: React.FC<{ cardInfo: CardInfo }> = ({ cardInfo }) => {
 const Wrapper = styled.div`
   width: 100%;
   height: auto;
-  border-top: 1px solid #d8d8d8;
   border-bottom: 1px solid #d8d8d8;
   background-color: white;
   display: flex;

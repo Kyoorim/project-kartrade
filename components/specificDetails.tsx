@@ -1,8 +1,9 @@
 import styled from "styled-components";
-import { CardDetailInfo } from "@/types";
+import {CardInfo} from "@/types";
 import Heading from "./heading/header";
+import React from "react";
 
-const SpecificDetails = ({ cardData }: CardDetailInfo) => {
+const SpecificDetails: React.FC<{cardData: CardInfo}> = ({cardData}) => {
   return (
     <Wrapper>
       <Heading level={6} mb="16px">
