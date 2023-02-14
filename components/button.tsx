@@ -13,7 +13,8 @@ const Wrapper = styled.div<CustomProps>`
   color: ${(props) => props.color};
   background-color: ${(props) => props.bgcolor};
   border-color: ${(props) => props.bdcolor};
-  width: 152.6px;
+  width: ${(props) => props.width};
+  font-weight: ${(props) => props.fontWeight};
   height: 55px;
   border-radius: 75px;
   border: 1px solid;
@@ -27,6 +28,9 @@ export interface CustomProps {
   bgcolor?: string;
   bdcolor?: string;
   type?: string;
+  value?: string;
+  width?: string | number;
+  fontWeight?: string | number;
 }
 
 export type ButtonProps = CustomProps;

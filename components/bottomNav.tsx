@@ -5,10 +5,10 @@ import { BsChat, BsSuitHeart } from "react-icons/bs";
 const BottomNav = () => {
   return (
     <Wrapper>
-      <Button bgcolor="black" color="white" bdcolor="black">
+      <Button bgcolor="black" color="white" bdcolor="black" width="152px">
         <BsChat fill="white" /> <span>SEND MESSAGE</span>
       </Button>
-      <Button bdcolor="#777777">
+      <Button bdcolor="#777777" width="152px">
         <BsSuitHeart /> <span>WISH LIST</span>
       </Button>
     </Wrapper>
