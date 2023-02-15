@@ -4,7 +4,6 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { FcGoogle } from "react-icons/fc";
 import Heading from "@/components/heading/header";
-
 import { authService } from "@/firebase";
 import {
   createUserWithEmailAndPassword,
@@ -68,7 +67,7 @@ const Auth: React.FC<{ isLoggedIn: Boolean }> = ({ isLoggedIn }) => {
         <Nav />
         <AuthContainer>
           {isLoggedIn ? (
-            <MyPage />
+            <MyPage isLoggedIn={isLoggedIn} />
           ) : (
             <>
               <AuthForm>

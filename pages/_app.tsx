@@ -10,15 +10,16 @@ const App = ({ Component, pageProps }: AppProps) => {
   const [isLoggedIn, setIsLoggedIn] = useState<Object | null>(
     authService.currentUser
   );
+
   const [userObj, setUserObj] = useState<Object | null>(null);
 
   useEffect(() => {
     hotjar.initialize(3341604, 6);
     const auth = getAuth();
+
     onAuthStateChanged(auth, (user) => {
       if (user) {
         setIsLoggedIn(true);
-
         setUserObj({
           displayName: user.displayName,
           uid: user.uid,
@@ -28,7 +29,7 @@ const App = ({ Component, pageProps }: AppProps) => {
       }
       setInit(true);
     });
-  }, []);
+  }, [isLoggedIn]);
   return (
     <>
       {init ? (
