@@ -3,19 +3,26 @@ import Nav from "@/components/nav";
 import React, { useState } from "react";
 import styled from "styled-components";
 import { FcGoogle } from "react-icons/fc";
-import Image from "next/image";
 import Heading from "@/components/heading/header";
 
-const Auth = () => {
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
-  const [newAccount, setNewAccount] = useState(true);
-  const [error, setError] = useState("");
+import { authService } from "@/firebase";
+import {
+  createUserWithEmailAndPassword,
+  getAuth,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+  GoogleAuthProvider,
+} from "firebase/auth";
+import MyPage from "@/components/myPage";
 
-  const onChange = (e) => {
-    const {
-      target: { name, value },
-    } = e;
+const Auth: React.FC<{ isLoggedIn: Boolean }> = ({ isLoggedIn }) => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [newAccount, setNewAccount] = useState(true);
+
+  const onChange = (event: { target: { name: string; value: string } }) => {
+    const name = event.target.name;
+    const value = event.target.value;
     if (name === "email") {
       setEmail(value);
     } else if (name === "password") {
@@ -23,89 +30,98 @@ const Auth = () => {
     }
   };
 
-  // const onSubmit = async (e) => {
-  //   e.preventDefault();
-  //   try {
-  //     let data;
-  //     const auth = getAuth();
-  //     if (newAccount) {
-  //       //create account
-  //       data = await createUserWithEmailAndPassword(auth, email, password);
-  //     } else {
-  //       //login
-  //       data = await signInWithEmailAndPassword(auth, email, password);
-  //     }
-  //     console.log(data);
-  //   } catch (error) {
-  //     setError(error.message);
-  //   }
-  // };
+  const onSubmit = async (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    try {
+      let data;
+      const auth = getAuth();
+      if (newAccount) {
+        //create account
+        data = await createUserWithEmailAndPassword(auth, email, password);
+        alert("You have successfully signed up");
+        setEmail("");
+        setPassword("");
+      } else {
+        //login
+        data = await signInWithEmailAndPassword(auth, email, password);
+        alert("You have successfully signed in");
+        setEmail("");
+        setPassword("");
+      }
+      console.log(data);
+    } catch (error) {
+      alert(error);
+    }
+  };
 
   const toggleAccount = () => setNewAccount((prev) => !prev);
 
-  // const onSocialClick = async (e) => {
-  //   const {
-  //     target: { name },
-  //   } = e;
-  //   let provider;
-  //   if (name === "google") {
-  //     provider = new GoogleAuthProvider();
-
-  //   }
-  //   await signInWithPopup(authService, provider);
-  // };
+  const onSocialClick = async () => {
+    const provider = new GoogleAuthProvider();
+    await signInWithPopup(authService, provider);
+    alert("You have successfully signed in");
+  };
 
   return (
     <BgWrapper>
       <Main>
         <Nav />
-        {/* <form onSubmit={onSubmit}> */}
         <AuthContainer>
-          <AuthForm>
-            <Heading level={3} mt="50px">
-              {newAccount ? "Sign In" : "Sign Up"}
-            </Heading>
-            <InputContainer>
-              <input
-                name="email"
-                type="email"
-                placeholder="EMAIL"
-                required
-                value={email}
-                onChange={onChange}
-              />
-              <input
-                name="password"
-                type="password"
-                placeholder="PASSWORD"
-                required
-                value={password}
-                onChange={onChange}
-              />
-            </InputContainer>
-            <Button
-              type="submit"
-              bgcolor="black"
-              color="white"
-              width="325px"
-              fontWeight={500}
-            >
-              {newAccount ? "SIGN IN" : "SIGN UP"}
-            </Button>
-          </AuthForm>
-          <MidContainer>
-            <div></div>
-            <span>OR</span>
-            <div></div>
-          </MidContainer>
-          {/* <button name="google" onClick={onSocialClick}> */}
-          <Button width="325px" fontWeight={500}>
-            <FcGoogle />
-            Continue with Google
-          </Button>
-          <span onClick={toggleAccount}>
-            {newAccount ? "Sign Up" : "Sign In"}
-          </span>
+          {isLoggedIn ? (
+            <MyPage />
+          ) : (
+            <>
+              <AuthForm>
+                <Heading level={3} mt="50px">
+                  {newAccount ? "Sign Up" : "Sign In"}
+                </Heading>
+                <InputContainer>
+                  <input
+                    name="email"
+                    type="email"
+                    placeholder="EMAIL"
+                    required
+                    value={email}
+                    onChange={onChange}
+                  />
+                  <input
+                    name="password"
+                    type="password"
+                    placeholder="PASSWORD"
+                    required
+                    value={password}
+                    onChange={onChange}
+                  />
+                </InputContainer>
+                <Button
+                  bgcolor="black"
+                  color="white"
+                  width="325px"
+                  fontWeight={500}
+                  onClick={onSubmit}
+                >
+                  {newAccount ? "SIGN UP" : "SIGN IN"}
+                </Button>
+              </AuthForm>
+              <MidContainer>
+                <div></div>
+                <span>OR</span>
+                <div></div>
+              </MidContainer>
+              <Button
+                name="google"
+                width="325px"
+                fontWeight={500}
+                onClick={onSocialClick}
+              >
+                <FcGoogle />
+                Continue with Google
+              </Button>
+              <ToggleMenu onClick={toggleAccount}>
+                {newAccount ? "SIGN IN" : "SIGN UP"}
+              </ToggleMenu>
+            </>
+          )}
         </AuthContainer>
       </Main>
     </BgWrapper>
@@ -155,8 +171,11 @@ const AuthContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  button::last-chlid {
-    background-color: red;
+
+  svg {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
   }
 `;
 
@@ -196,8 +215,18 @@ const MidContainer = styled.div`
   }
   div {
     height: 1px;
-    width: 80px;
+    width: 28%;
     background-color: #d8d8d8;
   }
 `;
+
+const ToggleMenu = styled.span`
+  margin-top: 30px;
+  font-size: 13px;
+  text-decoration: underline;
+  :hover {
+    cursor: pointer;
+  }
+`;
+
 export default Auth;
