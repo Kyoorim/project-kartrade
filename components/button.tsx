@@ -1,10 +1,10 @@
 import styled from "styled-components";
 import { FCC } from "@/types";
 
-const Button: FCC<ButtonProps> = ({ type, ...props }) => {
+const Button: FCC<ButtonProps> = ({ onClick, children, type, ...props }) => {
   return (
-    <Wrapper type={type} {...props}>
-      {props.children}
+    <Wrapper type={type} {...props} onClick={onClick}>
+      {children}
     </Wrapper>
   );
 };
@@ -21,16 +21,22 @@ const Wrapper = styled.div<CustomProps>`
   display: flex;
   justify-content: center;
   align-items: center;
+  :hover {
+    cursor: pointer;
+  }
 `;
 
 export interface CustomProps {
   color?: string;
   bgcolor?: string;
   bdcolor?: string;
-  type?: string;
+  type?: "button" | "submit";
   value?: string;
   width?: string | number;
   fontWeight?: string | number;
+  onClick?: (event: any) => Promise<void>;
+  children?: React.ReactNode | React.ReactNode[];
+  name?: string;
 }
 
 export type ButtonProps = CustomProps;
