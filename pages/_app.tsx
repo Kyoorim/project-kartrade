@@ -5,6 +5,7 @@ import { hotjar } from "react-hotjar";
 import { authService } from "@/firebase";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { WishListProvider } from "@/store/wishListReducer";
+import { UserProvider } from "@/store/userProvider";
 
 const App = ({ Component, pageProps }: AppProps) => {
   const [init, setInit] = useState<Boolean>(false);
@@ -34,9 +35,15 @@ const App = ({ Component, pageProps }: AppProps) => {
   return (
     <>
       {init ? (
-        <WishListProvider>
-          <Component {...pageProps} isLoggedIn={isLoggedIn} userObj={userObj} />
-        </WishListProvider>
+        <UserProvider>
+          <WishListProvider>
+            <Component
+              {...pageProps}
+              isLoggedIn={isLoggedIn}
+              userObj={userObj}
+            />
+          </WishListProvider>
+        </UserProvider>
       ) : (
         "Loading..."
       )}

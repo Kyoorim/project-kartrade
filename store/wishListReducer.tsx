@@ -4,6 +4,7 @@ export type WishListItem = {
   itemId: number;
   name: string;
   description: string;
+  userId?: string;
 };
 
 type WishListState = {

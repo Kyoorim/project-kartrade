@@ -4,10 +4,18 @@ import styled from "styled-components";
 import Button from "./button";
 import { authService } from "@/firebase";
 import PathBar from "./pathBar";
+import { useUser } from "@/store/userProvider";
 
 const MyPage: React.FC<{ isLoggedIn: Boolean }> = ({ isLoggedIn }) => {
   const { state } = useContext(WishListContext);
+  const { user } = useUser();
   console.log(state);
+
+  const items = user
+    ? state.items.filter((item) => item.userId === user.id)
+    : [];
+
+  console.log(state.items);
 
   const onLogoutClick = async (): Promise<void> => {
     authService.signOut();
@@ -20,7 +28,7 @@ const MyPage: React.FC<{ isLoggedIn: Boolean }> = ({ isLoggedIn }) => {
         <div>환영합니다</div>
         <div>WISHLIST</div>
         <ul>
-          {state.items.map((item) => (
+          {items.map((item) => (
             <li key={item.itemId}>{item.itemId}</li>
           ))}
         </ul>
