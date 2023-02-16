@@ -4,15 +4,20 @@ import styled from "styled-components";
 import Button from "./button";
 import { BsChat, BsSuitHeart } from "react-icons/bs";
 
-const BottomNav = ({ itemId }) => {
+const BottomNav = ({ item }) => {
   const { state, dispatch } = useContext(WishListContext);
 
   const handleClick = () => {
     dispatch({
       type: "ADD_ITEM",
-      payload: { itemId: itemId, name: "", description: "" },
+      payload: {
+        itemId: item.itemId,
+        name: "",
+        description: "",
+        userId: item.userId,
+      },
     });
-    console.log(itemId);
+    console.log(item.userId);
   };
   return (
     <Wrapper>

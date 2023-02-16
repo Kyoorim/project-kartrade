@@ -15,16 +15,15 @@ import QuantityBox from "@/components/quantityBox";
 import SpecificDetails from "@/components/specificDetails";
 import { CardInfo } from "@/types";
 import { InferGetStaticPropsType } from "next";
-import {
-  initialState,
-  WishListItem,
-  wishListReducer,
-} from "@/store/wishListReducer";
+import { WishListItem } from "@/store/wishListReducer";
+import { useUser } from "@/store/userProvider";
 
 const CardDetail = ({ cardData }: { cardData: CardInfo }) => {
-  const [state, dispatch] = useReducer(wishListReducer, initialState);
-
   const router = useRouter();
+  const { user } = useUser();
+  console.log({ user });
+  const userId = user ? user.id : "";
+  console.log(userId);
 
   const { id } = router.query;
   const itemId = id ? parseInt(id as string, 10) : 0;
@@ -33,6 +32,7 @@ const CardDetail = ({ cardData }: { cardData: CardInfo }) => {
     itemId: itemId,
     name: "Item" + itemId,
     description: "This is item" + itemId,
+    userId,
   };
 
   return (
@@ -72,7 +72,7 @@ const CardDetail = ({ cardData }: { cardData: CardInfo }) => {
         <QuantityBox />
         <SpecificDetails cardData={cardData} />
         <Footer />
-        <BottomNav itemId={itemId} />
+        <BottomNav item={item} />
       </Main>
     </BgWrapper>
   );
