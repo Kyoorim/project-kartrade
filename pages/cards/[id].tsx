@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useReducer } from "react";
+import { useRouter } from "next/router";
 import Heading from "@/components/heading/header";
 import Nav from "@/components/nav";
 import PathBar from "@/components/pathBar";
@@ -14,8 +15,26 @@ import QuantityBox from "@/components/quantityBox";
 import SpecificDetails from "@/components/specificDetails";
 import { CardInfo } from "@/types";
 import { InferGetStaticPropsType } from "next";
+import {
+  initialState,
+  WishListItem,
+  wishListReducer,
+} from "@/store/wishListReducer";
 
 const CardDetail = ({ cardData }: { cardData: CardInfo }) => {
+  const [state, dispatch] = useReducer(wishListReducer, initialState);
+
+  const router = useRouter();
+
+  const { id } = router.query;
+  const itemId = id ? parseInt(id as string, 10) : 0;
+
+  const item: WishListItem = {
+    itemId: itemId,
+    name: "Item" + itemId,
+    description: "This is item" + itemId,
+  };
+
   return (
     <BgWrapper>
       <Main>
@@ -53,7 +72,7 @@ const CardDetail = ({ cardData }: { cardData: CardInfo }) => {
         <QuantityBox />
         <SpecificDetails cardData={cardData} />
         <Footer />
-        <BottomNav />
+        <BottomNav itemId={itemId} />
       </Main>
     </BgWrapper>
   );

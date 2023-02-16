@@ -4,6 +4,7 @@ import "../styles/globals.css";
 import { hotjar } from "react-hotjar";
 import { authService } from "@/firebase";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { WishListProvider } from "@/store/wishListReducer";
 
 const App = ({ Component, pageProps }: AppProps) => {
   const [init, setInit] = useState<Boolean>(false);
@@ -33,7 +34,9 @@ const App = ({ Component, pageProps }: AppProps) => {
   return (
     <>
       {init ? (
-        <Component {...pageProps} isLoggedIn={isLoggedIn} userObj={userObj} />
+        <WishListProvider>
+          <Component {...pageProps} isLoggedIn={isLoggedIn} userObj={userObj} />
+        </WishListProvider>
       ) : (
         "Loading..."
       )}

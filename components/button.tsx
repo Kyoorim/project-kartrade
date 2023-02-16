@@ -37,6 +37,7 @@ export interface CustomProps {
   onClick?: (event: any) => Promise<void>;
   children?: React.ReactNode | React.ReactNode[];
   name?: string;
+  itemId?: number;
 }
 
 export type ButtonProps = CustomProps;
