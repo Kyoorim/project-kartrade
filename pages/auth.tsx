@@ -47,7 +47,6 @@ const Auth: React.FC<{ isLoggedIn: Boolean }> = ({ isLoggedIn }) => {
         setEmail("");
         setPassword("");
       }
-      console.log(data);
     } catch (error) {
       alert(error);
     }
