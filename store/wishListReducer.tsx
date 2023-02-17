@@ -5,6 +5,9 @@ export type WishListItem = {
   name: string;
   description: string;
   userId?: string;
+  mainImage: any;
+  profileId: string;
+  price: number;
 };
 
 type WishListState = {

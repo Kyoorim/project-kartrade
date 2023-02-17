@@ -5,6 +5,7 @@ import Button from "./button";
 import { authService } from "@/firebase";
 import PathBar from "./pathBar";
 import { useUser } from "@/store/userProvider";
+import WishListCardBox from "./wishListCardBox";
 
 const MyPage: React.FC<{ isLoggedIn: Boolean }> = ({ isLoggedIn }) => {
   const { state } = useContext(WishListContext);
@@ -28,11 +29,7 @@ const MyPage: React.FC<{ isLoggedIn: Boolean }> = ({ isLoggedIn }) => {
         <div>환영합니다</div>
         <div>WISHLIST</div>
         {items.map((item) => (
-          <ul key={item.itemId}>
-            <li>{item.itemId}</li>
-            <li>{item.name}</li>
-            <li>{item.description}</li>
-          </ul>
+          <WishListCardBox key={item.itemId} item={item} />
         ))}
         <Button type="submit" onClick={onLogoutClick} width="100px">
           LOG OUT
