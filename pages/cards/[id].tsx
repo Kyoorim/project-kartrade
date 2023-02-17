@@ -33,6 +33,9 @@ const CardDetail = ({ cardData }: { cardData: CardInfo }) => {
     name: cardData.infoTitle,
     description: cardData.infoDetail,
     userId,
+    mainImage: cardData.mainImage,
+    profileId: cardData.profileId,
+    price: cardData.price,
   };
   console.log(item);
   console.log(cardData);

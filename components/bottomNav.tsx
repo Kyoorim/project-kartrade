@@ -7,7 +7,7 @@ import { BsChat, BsSuitHeart } from "react-icons/bs";
 const BottomNav = ({ item, cardData }) => {
   const { state, dispatch } = useContext(WishListContext);
 
-  const handleClick = () => {
+  const handleClick = async (): Promise<void> => {
     dispatch({
       type: "ADD_ITEM",
       payload: {
@@ -15,6 +15,9 @@ const BottomNav = ({ item, cardData }) => {
         name: cardData.infoTitle,
         description: cardData.infoDetail,
         userId: item.userId,
+        mainImage: cardData.mainImage,
+        profileId: cardData.profileId,
+        price: cardData.price,
       },
     });
     console.log(item.userId);
