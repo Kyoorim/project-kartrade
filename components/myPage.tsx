@@ -15,7 +15,7 @@ const MyPage: React.FC<{ isLoggedIn: Boolean }> = ({ isLoggedIn }) => {
     ? state.items.filter((item) => item.userId === user.id)
     : [];
 
-  console.log(state.items);
+  console.log(items);
 
   const onLogoutClick = async (): Promise<void> => {
     authService.signOut();
@@ -27,11 +27,13 @@ const MyPage: React.FC<{ isLoggedIn: Boolean }> = ({ isLoggedIn }) => {
       <LoginContainer>
         <div>환영합니다</div>
         <div>WISHLIST</div>
-        <ul>
-          {items.map((item) => (
-            <li key={item.itemId}>{item.itemId}</li>
-          ))}
-        </ul>
+        {items.map((item) => (
+          <ul key={item.itemId}>
+            <li>{item.itemId}</li>
+            <li>{item.name}</li>
+            <li>{item.description}</li>
+          </ul>
+        ))}
         <Button type="submit" onClick={onLogoutClick} width="100px">
           LOG OUT
         </Button>
