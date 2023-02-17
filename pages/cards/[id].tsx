@@ -30,10 +30,12 @@ const CardDetail = ({ cardData }: { cardData: CardInfo }) => {
 
   const item: WishListItem = {
     itemId: itemId,
-    name: "Item" + itemId,
-    description: "This is item" + itemId,
+    name: cardData.infoTitle,
+    description: cardData.infoDetail,
     userId,
   };
+  console.log(item);
+  console.log(cardData);
 
   return (
     <BgWrapper>
@@ -72,7 +74,7 @@ const CardDetail = ({ cardData }: { cardData: CardInfo }) => {
         <QuantityBox />
         <SpecificDetails cardData={cardData} />
         <Footer />
-        <BottomNav item={item} />
+        <BottomNav item={item} cardData={cardData} />
       </Main>
     </BgWrapper>
   );

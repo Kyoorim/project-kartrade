@@ -4,7 +4,7 @@ import styled from "styled-components";
 import Button from "./button";
 import { BsChat, BsSuitHeart } from "react-icons/bs";
 
-const BottomNav = ({ item }) => {
+const BottomNav = ({ item, cardData }) => {
   const { state, dispatch } = useContext(WishListContext);
 
   const handleClick = () => {
@@ -12,8 +12,8 @@ const BottomNav = ({ item }) => {
       type: "ADD_ITEM",
       payload: {
         itemId: item.itemId,
-        name: "",
-        description: "",
+        name: cardData.infoTitle,
+        description: cardData.infoDetail,
         userId: item.userId,
       },
     });
@@ -24,10 +24,9 @@ const BottomNav = ({ item }) => {
       <Button bgcolor="black" color="white" bdcolor="black" width="152px">
         <BsChat fill="white" /> <span>SEND MESSAGE</span>
       </Button>
-      {/* <Button bdcolor="#777777" width="152px" onClick={handleClick}> */}
-      <button onClick={handleClick}>
+      <Button bdcolor="#777777" width="152px" onClick={handleClick}>
         <BsSuitHeart /> <span>WISH LIST</span>
-      </button>
+      </Button>
       {/* </Button> */}
     </Wrapper>
   );

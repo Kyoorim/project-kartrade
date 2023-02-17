@@ -1,4 +1,4 @@
-import { createContext, useReducer } from "react";
+import { createContext, useReducer, useEffect } from "react";
 
 export type WishListItem = {
   itemId: number;
@@ -13,11 +13,15 @@ type WishListState = {
 
 type WishListAction =
   | { type: "ADD_ITEM"; payload: WishListItem }
-  | { type: "REMOVE_ITEM"; payload: string };
+  | { type: "REMOVE_ITEM"; payload: string }
+  | { type: "SAVE_ITEM"; payload: string };
 
-export const initialState: WishListState = {
-  items: [],
-};
+export function initialState(): WishListState {
+  if (typeof window !== "undefined") {
+    const storedState = window.localStorage.getItem("wishList");
+    return storedState ? JSON.parse(storedState) : { items: [] };
+  }
+}
 
 export const wishListReducer = (
   state: WishListState,
@@ -31,6 +35,10 @@ export const wishListReducer = (
         ...state,
         items: state.items.filter((item) => item.itemId !== action.payload),
       };
+    case "SAVE_ITEM": {
+      const storedState = window.localStorage.getItem("wishList");
+      return storedState ? JSON.parse(storedState) : { items: [] };
+    }
     default:
       return state;
   }
@@ -40,12 +48,16 @@ export const WishListContext = createContext<{
   state: WishListState;
   dispatch: React.Dispatch<WishListAction>;
 }>({
-  state: initialState,
+  state: initialState(),
   dispatch: () => null,
 });
 
 export const WishListProvider: React.FC = ({ children }) => {
-  const [state, dispatch] = useReducer(wishListReducer, initialState);
+  const [state, dispatch] = useReducer(wishListReducer, initialState());
+
+  useEffect(() => {
+    window.localStorage.setItem("wishList", JSON.stringify(state));
+  }, [state]);
 
   return (
     <WishListContext.Provider value={{ state, dispatch }}>
