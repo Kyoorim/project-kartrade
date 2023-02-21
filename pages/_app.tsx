@@ -4,8 +4,9 @@ import "../styles/globals.css";
 import { hotjar } from "react-hotjar";
 import { authService } from "@/firebase";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { WishListProvider } from "@/store/wishListReducer";
-import { UserProvider } from "@/store/userProvider";
+import { User as FirebaseUser } from "firebase/auth";
+
+type User = Pick<FirebaseUser, "uid" | "displayName">;
 
 const App = ({ Component, pageProps }: AppProps) => {
   const [init, setInit] = useState<Boolean>(false);
@@ -19,7 +20,7 @@ const App = ({ Component, pageProps }: AppProps) => {
     hotjar.initialize(3341604, 6);
     const auth = getAuth();
 
-    onAuthStateChanged(auth, (user) => {
+    return onAuthStateChanged(auth, (user) => {
       if (user) {
         setIsLoggedIn(true);
         setUserObj({
@@ -31,19 +32,11 @@ const App = ({ Component, pageProps }: AppProps) => {
       }
       setInit(true);
     });
-  }, [isLoggedIn]);
+  }, []);
   return (
     <>
       {init ? (
-        <UserProvider>
-          <WishListProvider>
-            <Component
-              {...pageProps}
-              isLoggedIn={isLoggedIn}
-              userObj={userObj}
-            />
-          </WishListProvider>
-        </UserProvider>
+        <Component {...pageProps} isLoggedIn={isLoggedIn} userObj={userObj} />
       ) : (
         "Loading..."
       )}
