@@ -5,7 +5,7 @@ import Button from "./button";
 import { BsChat, BsSuitHeart } from "react-icons/bs";
 
 const BottomNav = ({ item, cardData }) => {
-  const { state, dispatch } = useContext(WishListContext);
+  const { dispatch } = useContext(WishListContext);
 
   const handleClick = async (): Promise<void> => {
     dispatch({
@@ -20,7 +20,7 @@ const BottomNav = ({ item, cardData }) => {
         price: cardData.price,
       },
     });
-    console.log(item.userId);
+    console.log(item);
   };
   return (
     <Wrapper>
@@ -30,7 +30,6 @@ const BottomNav = ({ item, cardData }) => {
       <Button bdcolor="#777777" width="152px" onClick={handleClick}>
         <BsSuitHeart /> <span>WISH LIST</span>
       </Button>
-      {/* </Button> */}
     </Wrapper>
   );
 };

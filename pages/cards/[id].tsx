@@ -16,13 +16,13 @@ import SpecificDetails from "@/components/specificDetails";
 import { CardInfo } from "@/types";
 import { InferGetStaticPropsType } from "next";
 import { WishListItem } from "@/store/wishListReducer";
-import { useUser } from "@/store/userProvider";
+import { useUser } from "@/store/userReducer";
 
 const CardDetail = ({ cardData }: { cardData: CardInfo }) => {
   const router = useRouter();
-  const { user } = useUser();
-  console.log({ user });
-  const userId = user ? user.id : "";
+  const { userObj } = useUser();
+  console.log({ userObj });
+  const userId = userObj ? userObj.id : "";
   console.log(userId);
 
   const { id } = router.query;

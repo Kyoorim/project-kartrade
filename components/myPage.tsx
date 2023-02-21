@@ -5,13 +5,16 @@ import Button from "./button";
 import { authService } from "@/firebase";
 import PathBar from "./pathBar";
 import WishListCardBox from "./wishListCardBox";
+import { useUser } from "@/store/userReducer";
 
-const MyPage: React.FC<{ isLoggedIn: Boolean }> = ({ isLoggedIn, userObj }) => {
+const MyPage = () => {
   const { state } = useContext(WishListContext);
+  const { userObj } = useUser();
 
   const items = userObj
-    ? state.items.filter((item) => item.userId === userObj.uid)
+    ? state.items.filter((item) => item.userId === userObj.id)
     : [];
+  console.log(items);
 
   const onLogoutClick = async (): Promise<void> => {
     authService.signOut();
@@ -19,7 +22,7 @@ const MyPage: React.FC<{ isLoggedIn: Boolean }> = ({ isLoggedIn, userObj }) => {
   };
   return (
     <>
-      <PathBar isLoggedIn={isLoggedIn} />
+      <PathBar />
       <LoginContainer>
         <div>환영합니다</div>
         <div>WISHLIST</div>

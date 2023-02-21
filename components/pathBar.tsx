@@ -1,8 +1,11 @@
 import styled from "styled-components";
 import { FiChevronRight } from "react-icons/fi";
 import { useRouter } from "next/router";
+import { useUser } from "@/store/userReducer";
 
-const PathBar: React.FC<{ isLoggedIn: Boolean }> = ({ isLoggedIn }) => {
+const PathBar = () => {
+  const { isLoggedIn } = useUser();
+
   const router = useRouter();
   const isAuth = router.asPath === "/auth";
   const isCardDetail = router.asPath.includes("cards");

@@ -13,8 +13,10 @@ import {
   GoogleAuthProvider,
 } from "firebase/auth";
 import MyPage from "@/components/myPage";
+import { useUser } from "../store/userReducer";
 
-const Auth: React.FC<{ isLoggedIn: Boolean }> = ({ isLoggedIn, userObj }) => {
+const Auth = () => {
+  const { isLoggedIn } = useUser();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [newAccount, setNewAccount] = useState(true);
@@ -66,7 +68,7 @@ const Auth: React.FC<{ isLoggedIn: Boolean }> = ({ isLoggedIn, userObj }) => {
         <Nav />
         <AuthContainer>
           {isLoggedIn ? (
-            <MyPage isLoggedIn={isLoggedIn} userObj={userObj} />
+            <MyPage />
           ) : (
             <>
               <AuthForm>
