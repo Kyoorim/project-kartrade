@@ -14,7 +14,7 @@ import {
 } from "firebase/auth";
 import MyPage from "@/components/myPage";
 
-const Auth: React.FC<{ isLoggedIn: Boolean }> = ({ isLoggedIn }) => {
+const Auth: React.FC<{ isLoggedIn: Boolean }> = ({ isLoggedIn, userObj }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [newAccount, setNewAccount] = useState(true);
@@ -66,7 +66,7 @@ const Auth: React.FC<{ isLoggedIn: Boolean }> = ({ isLoggedIn }) => {
         <Nav />
         <AuthContainer>
           {isLoggedIn ? (
-            <MyPage isLoggedIn={isLoggedIn} />
+            <MyPage isLoggedIn={isLoggedIn} userObj={userObj} />
           ) : (
             <>
               <AuthForm>

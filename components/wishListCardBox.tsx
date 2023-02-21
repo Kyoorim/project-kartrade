@@ -5,7 +5,6 @@ import Link from "next/link";
 import { dummyCardInfo } from "@/asset/dummyCardInfo";
 
 const WishListCardBox = ({ item }) => {
-  console.log(item.profileId);
   return (
     <Wrapper>
       <PhotoContainer>
