@@ -1,26 +1,38 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { WishListContext } from "@/store/wishListReducer";
 import styled from "styled-components";
 import Button from "./button";
-import { BsChat, BsSuitHeart } from "react-icons/bs";
+import { BsChat, BsSuitHeart, BsSuitHeartFill } from "react-icons/bs";
 
 const BottomNav = ({ item, cardData }) => {
-  const { dispatch } = useContext(WishListContext);
+  const { state, dispatch } = useContext(WishListContext);
+  const [itemInList, setItemInList] = useState(false);
+  console.log(state);
+  useEffect(() => {
+    if (state) {
+      setItemInList(
+        state.items.some((wishListItem) => wishListItem.itemId === item.itemId)
+      );
+    }
+  }, [state, item.itemId]);
 
   const handleClick = async (): Promise<void> => {
-    dispatch({
-      type: "ADD_ITEM",
-      payload: {
-        itemId: item.itemId,
-        name: cardData.infoTitle,
-        description: cardData.infoDetail,
-        userId: item.userId,
-        mainImage: cardData.mainImage,
-        profileId: cardData.profileId,
-        price: cardData.price,
-      },
-    });
-    console.log(item);
+    if (itemInList) {
+      dispatch({ type: "REMOVE_ITEM", payload: item.itemId });
+    } else {
+      dispatch({
+        type: "ADD_ITEM",
+        payload: {
+          itemId: item.itemId,
+          name: cardData.infoTitle,
+          description: cardData.infoDetail,
+          userId: item.userId,
+          mainImage: cardData.mainImage,
+          profileId: cardData.profileId,
+          price: cardData.price,
+        },
+      });
+    }
   };
   return (
     <Wrapper>
@@ -28,7 +40,8 @@ const BottomNav = ({ item, cardData }) => {
         <BsChat fill="white" /> <span>SEND MESSAGE</span>
       </Button>
       <Button bdcolor="#777777" width="152px" onClick={handleClick}>
-        <BsSuitHeart /> <span>WISH LIST</span>
+        {itemInList ? <BsSuitHeartFill fill="red" /> : <BsSuitHeart />}{" "}
+        <span>WISH LIST</span>
       </Button>
     </Wrapper>
   );
