@@ -1,19 +1,19 @@
 import MainBody from "@/components/mainBody";
 import styled from "styled-components";
-import {dummyCardInfo as cardInfo} from "@/asset/dummyCardInfo";
+import { dummyCardInfo as cardInfo } from "@/asset/dummyCardInfo";
 import Footer from "@/components/footer";
-import {CardInfo} from "@/types";
-import {GetServerSidePropsContext} from "next";
+import { CardInfo } from "@/types";
+import { GetServerSidePropsContext } from "next";
 
 export default function Home(data: { cardInfo: CardInfo[] }) {
-    return (
-        <BgWrapper>
-            <Main>
-                <MainBody cardInfo={data.cardInfo}/>
-                <Footer/>
-            </Main>
-        </BgWrapper>
-    );
+  return (
+    <BgWrapper>
+      <Main>
+        <MainBody cardInfo={data.cardInfo} />
+        <Footer />
+      </Main>
+    </BgWrapper>
+  );
 }
 
 const BgWrapper = styled.div`
@@ -54,52 +54,45 @@ const Main = styled.section`
 `;
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-    const key = Object.keys(context.query);
-    if (key.length === 0) {
-        return {
-            props: {
-                cardInfo,
-            },
-        };
-    } else {
-        const searchTerm = context.query.search;
-        if (searchTerm) {
-            const searchPattern = new RegExp(searchTerm as string, 'i');
-            const copiedCardInfo = cardInfo.filter((c) => c.infoTitle.match(searchPattern) !== null);
+  const key = Object.keys(context.query);
+  if (key.length === 0) {
+    return {
+      props: {
+        cardInfo,
+      },
+    };
+  } else {
+    const searchTerm = context.query.search;
+    if (searchTerm) {
+      const searchPattern = new RegExp(searchTerm as string, "i");
+      const copiedCardInfo = cardInfo.filter(
+        (c) => c.infoTitle.match(searchPattern) !== null
+      );
 
-            const sortDirection = context.query.sort;
-            copiedCardInfo.sort((a, b) => {
-                return sortDirection === "price_asc"
-                    ? a.price - b.price
-                    : b.price - a.price;
-            });
+      const sortDirection = context.query.sort;
+      copiedCardInfo.sort((a, b) => {
+        return sortDirection === "price_asc"
+          ? a.price - b.price
+          : b.price - a.price;
+      });
 
-            return {
-                props: {
-                    cardInfo: copiedCardInfo,
-                },
-            }
-        }
-
-        const sortDirection = context.query.sort;
-        cardInfo.sort((a, b) => {
-            return sortDirection === "price_asc"
-                ? a.price - b.price
-                : b.price - a.price;
-        });
-        return {
-            props: {
-                cardInfo,
-            },
-        };
+      return {
+        props: {
+          cardInfo: copiedCardInfo,
+        },
+      };
     }
 
-    // else if (key[0] === "search") {
-
-    //   return {
-    //     props: {
-    //       copiedCardInfo,
-    //     },
-    //   };
-    // }
+    const sortDirection = context.query.sort;
+    cardInfo.sort((a, b) => {
+      return sortDirection === "price_asc"
+        ? a.price - b.price
+        : b.price - a.price;
+    });
+    return {
+      props: {
+        cardInfo,
+      },
+    };
+  }
 }

@@ -9,6 +9,7 @@ const PathBar = () => {
   const router = useRouter();
   const isAuth = router.asPath === "/auth";
   const isCardDetail = router.asPath.includes("cards");
+  const isWishList = router.asPath === "/wishlist";
   return (
     <Wrapper>
       <SortingContainer>
@@ -16,6 +17,7 @@ const PathBar = () => {
         <FiChevronRight />
         {isLoggedIn && isAuth && <span>My Page</span>}
         {isCardDetail && <span>Detail Page</span>}
+        {isWishList && <span>Wish List</span>}
       </SortingContainer>
     </Wrapper>
   );

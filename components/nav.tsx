@@ -6,6 +6,7 @@ import brand from "../public/brand.svg";
 import { useRouter } from "next/router";
 import search from "../public/search.svg";
 import account from "../public/account.svg";
+import { BsSuitHeart } from "react-icons/bs";
 
 const Nav = () => {
   const [searchValue, setSearchValue] = useState("");
@@ -49,7 +50,7 @@ const Nav = () => {
             style={{ cursor: "pointer" }}
             onClick={handleSearchClick}
           ></Image>
-          <MenuBar></MenuBar>
+          <BsSuitHeart onClick={() => router.push("/wishlist")} />
         </MenuContainer>
         <SearchBar className={isOpened ? "show-menu" : "hide-menu"}>
           <Image src={search} alt="search"></Image>
@@ -93,16 +94,6 @@ const MenuContainer = styled.div`
   display: flex;
   justify-content: space-around;
   align-items: center;
-`;
-
-const MenuBar = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-top: 1.6px solid;
-  border-bottom: 1.6px solid;
-  height: 12px;
-  width: 17px;
 `;
 
 const SearchBar = styled.div`

@@ -40,7 +40,7 @@ const BottomNav = ({ item, cardData }) => {
         <BsChat fill="white" /> <span>SEND MESSAGE</span>
       </Button>
       <Button bdcolor="#777777" width="152px" onClick={handleClick}>
-        {itemInList ? <BsSuitHeartFill fill="red" /> : <BsSuitHeart />}{" "}
+        {itemInList ? <BsSuitHeartFill fill="red" /> : <BsSuitHeart />}
         <span>WISH LIST</span>
       </Button>
     </Wrapper>

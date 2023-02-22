@@ -8,6 +8,7 @@ export type WishListItem = {
   mainImage: any;
   profileId: string;
   price: number;
+  // itemInList: boolean;
 };
 
 type WishListState = {
