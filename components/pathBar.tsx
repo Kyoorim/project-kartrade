@@ -2,14 +2,19 @@ import styled from "styled-components";
 import { FiChevronRight } from "react-icons/fi";
 import { useRouter } from "next/router";
 
-const PathBar = () => {
+
+const PathBar: React.FC<{ isLoggedIn: Boolean }> = ({ isLoggedIn }) => {
   const router = useRouter();
+  const isAuth = router.asPath === "/auth";
+  const isCardDetail = router.asPath.includes("cards");
+
   return (
     <Wrapper>
       <SortingContainer>
         <Home onClick={() => router.push("/")}>Home</Home>
         <FiChevronRight />
-        <span>Detail Page</span>
+        {isLoggedIn && isAuth && <span>My Page</span>}
+        {isCardDetail && <span>Detail Page</span>}
       </SortingContainer>
     </Wrapper>
   );

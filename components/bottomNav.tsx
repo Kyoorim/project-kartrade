@@ -1,16 +1,36 @@
+import { useContext } from "react";
+import { WishListContext } from "@/store/wishListReducer";
 import styled from "styled-components";
 import Button from "./button";
 import { BsChat, BsSuitHeart } from "react-icons/bs";
 
-const BottomNav = () => {
+const BottomNav = ({ item, cardData }) => {
+  const { state, dispatch } = useContext(WishListContext);
+
+  const handleClick = async (): Promise<void> => {
+    dispatch({
+      type: "ADD_ITEM",
+      payload: {
+        itemId: item.itemId,
+        name: cardData.infoTitle,
+        description: cardData.infoDetail,
+        userId: item.userId,
+        mainImage: cardData.mainImage,
+        profileId: cardData.profileId,
+        price: cardData.price,
+      },
+    });
+    console.log(item.userId);
+  };
   return (
     <Wrapper>
-      <Button bgcolor="black" color="white" bdcolor="black">
+      <Button bgcolor="black" color="white" bdcolor="black" width="152px">
         <BsChat fill="white" /> <span>SEND MESSAGE</span>
       </Button>
-      <Button bdcolor="#777777">
+      <Button bdcolor="#777777" width="152px" onClick={handleClick}>
         <BsSuitHeart /> <span>WISH LIST</span>
       </Button>
+      {/* </Button> */}
     </Wrapper>
   );
 };

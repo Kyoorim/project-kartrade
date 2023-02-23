@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useReducer } from "react";
+import { useRouter } from "next/router";
 import Heading from "@/components/heading/header";
 import Nav from "@/components/nav";
 import PathBar from "@/components/pathBar";
@@ -12,69 +13,91 @@ import BottomNav from "@/components/bottomNav";
 import PhotoBox from "@/components/photoBox";
 import QuantityBox from "@/components/quantityBox";
 import SpecificDetails from "@/components/specificDetails";
-import {CardInfo} from "@/types";
-import {InferGetStaticPropsType} from "next";
+import { CardInfo } from "@/types";
+import { InferGetStaticPropsType } from "next";
+import { WishListItem } from "@/store/wishListReducer";
+import { useUser } from "@/store/userProvider";
 
-const CardDetail = ({cardData}: {cardData: CardInfo}) => {
-    console.log("-> cardData", cardData);
-    return (
-        <BgWrapper>
-            <Main>
-                <Nav/>
-                <PathBar/>
-                <ContentWrapper>
-                    <ProfileContainer>
-                        <ProfileBox>
-                            <Image
-                                src={cardData.mainImage}
-                                alt="mainImage"
-                                style={{width: "38px", height: "38px", borderRadius: "50%"}}
-                            ></Image>
-                            <div>@{cardData.profileId}</div>
-                        </ProfileBox>
-                        <MessageBox>
-                            <BsChat fill="#515151"/>
-                            <span>Send Message</span>
-                        </MessageBox>
-                    </ProfileContainer>
-                    <InfoContainer>
-                        <Heading level={3} mb="1em">
-                            {cardData.infoTitle}
-                        </Heading>
-                        <p>{cardData.infoDetail}</p>
-                        <Heading level={3} mb="0.1em">
-                            USD {cardData.price}
-                        </Heading>
-                        <p> Local Taxes included (where applicable) </p>
-                    </InfoContainer>
-                </ContentWrapper>
-                {cardData.detailImage.map((photo) => (
-                    <PhotoBox key={photo.id} photo={photo}></PhotoBox>
-                ))}
-                <QuantityBox/>
-                <SpecificDetails cardData={cardData}/>
-                <Footer/>
-                <BottomNav/>
-            </Main>
-        </BgWrapper>
-    );
+const CardDetail = ({ cardData }: { cardData: CardInfo }) => {
+  const router = useRouter();
+  const { user } = useUser();
+  console.log({ user });
+  const userId = user ? user.id : "";
+  console.log(userId);
+
+  const { id } = router.query;
+  const itemId = id ? parseInt(id as string, 10) : 0;
+
+  const item: WishListItem = {
+    itemId: itemId,
+    name: cardData.infoTitle,
+    description: cardData.infoDetail,
+    userId,
+    mainImage: cardData.mainImage,
+    profileId: cardData.profileId,
+    price: cardData.price,
+  };
+  console.log(item);
+  console.log(cardData);
+
+  return (
+    <BgWrapper>
+      <Main>
+        <Nav />
+        <PathBar />
+        <ContentWrapper>
+          <ProfileContainer>
+            <ProfileBox>
+              <Image
+                src={cardData.mainImage}
+                alt="mainImage"
+                style={{ width: "38px", height: "38px", borderRadius: "50%" }}
+              ></Image>
+              <div>@{cardData.profileId}</div>
+            </ProfileBox>
+            <MessageBox>
+              <BsChat fill="#515151" />
+              <span>Send Message</span>
+            </MessageBox>
+          </ProfileContainer>
+          <InfoContainer>
+            <Heading level={3} mb="1em">
+              {cardData.infoTitle}
+            </Heading>
+            <p>{cardData.infoDetail}</p>
+            <Heading level={3} mb="0.1em">
+              USD {cardData.price}
+            </Heading>
+            <p> Local Taxes included (where applicable) </p>
+          </InfoContainer>
+        </ContentWrapper>
+        {cardData.detailImage.map((photo) => (
+          <PhotoBox key={photo.id} photo={photo}></PhotoBox>
+        ))}
+        <QuantityBox />
+        <SpecificDetails cardData={cardData} />
+        <Footer />
+        <BottomNav item={item} cardData={cardData} />
+      </Main>
+    </BgWrapper>
+  );
 };
 
 export function getStaticPaths() {
-    const paths = getPostIdList();
-    return {
-        paths,
-        fallback: false,
-    };
+  const paths = getPostIdList();
+  return {
+    paths,
+    fallback: false,
+  };
 }
 
-export function getStaticProps({params}: InferGetStaticPropsType<any>) {
-    const cardData = getPostDetails(params.id as string);
-    return {
-        props: {
-            cardData,
-        },
-    };
+export function getStaticProps({ params }: InferGetStaticPropsType<any>) {
+  const cardData = getPostDetails(params.id as string);
+  return {
+    props: {
+      cardData,
+    },
+  };
 }
 
 const BgWrapper = styled.div`

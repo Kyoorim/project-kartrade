@@ -5,6 +5,7 @@ import logo from "../public/logo.svg";
 import brand from "../public/brand.svg";
 import { useRouter } from "next/router";
 import search from "../public/search.svg";
+import account from "../public/account.svg";
 
 const Nav = () => {
   const [searchValue, setSearchValue] = useState("");
@@ -23,7 +24,8 @@ const Nav = () => {
   const keyPressHandler = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       setSearchValue("");
-      setIsOpened(false)
+      setIsOpened(false);
+
       router.push(`/?search=${searchValue}`);
     }
   };
@@ -37,10 +39,10 @@ const Nav = () => {
         </LogoContainer>
         <MenuContainer>
           <Image
-            src={search}
-            alt="search"
-            style={{ cursor: "pointer" }}
-            onClick={handleSearchClick}
+            src={account}
+            alt="account"
+            style={{ cursor: "pointer", width: "25px" }}
+            onClick={() => router.push("/auth")}
           ></Image>
           <MenuBar></MenuBar>
         </MenuContainer>
@@ -82,8 +84,9 @@ const LogoContainer = styled.section`
 `;
 
 const MenuContainer = styled.div`
+  width: 30%;
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
 `;
 
@@ -96,6 +99,7 @@ const MenuBar = styled.div`
   height: 12px;
   width: 17px;
   margin-left: 25px;
+
 `;
 
 const SearchBar = styled.div`
