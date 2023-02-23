@@ -6,9 +6,9 @@ import PathBar from "@/components/pathBar";
 import styled from "styled-components";
 import Footer from "@/components/footer";
 import Image from "next/image";
-import { BsChat } from "react-icons/bs";
+import {BsChat} from "react-icons/bs";
 
-import { getPostDetails, getPostIdList } from "../../lib/posts";
+import {getPostDetails, getPostIdList} from "../../lib/posts";
 import BottomNav from "@/components/bottomNav";
 import PhotoBox from "@/components/photoBox";
 import QuantityBox from "@/components/quantityBox";

@@ -2,10 +2,12 @@ import styled from "styled-components";
 import { FiChevronRight } from "react-icons/fi";
 import { useRouter } from "next/router";
 
+
 const PathBar: React.FC<{ isLoggedIn: Boolean }> = ({ isLoggedIn }) => {
   const router = useRouter();
   const isAuth = router.asPath === "/auth";
   const isCardDetail = router.asPath.includes("cards");
+
   return (
     <Wrapper>
       <SortingContainer>

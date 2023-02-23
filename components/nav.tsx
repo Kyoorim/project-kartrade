@@ -25,6 +25,7 @@ const Nav = () => {
     if (e.key === "Enter") {
       setSearchValue("");
       setIsOpened(false);
+
       router.push(`/?search=${searchValue}`);
     }
   };
@@ -42,12 +43,6 @@ const Nav = () => {
             alt="account"
             style={{ cursor: "pointer", width: "25px" }}
             onClick={() => router.push("/auth")}
-          ></Image>
-          <Image
-            src={search}
-            alt="search"
-            style={{ cursor: "pointer" }}
-            onClick={handleSearchClick}
           ></Image>
           <MenuBar></MenuBar>
         </MenuContainer>
@@ -103,6 +98,8 @@ const MenuBar = styled.div`
   border-bottom: 1.6px solid;
   height: 12px;
   width: 17px;
+  margin-left: 25px;
+
 `;
 
 const SearchBar = styled.div`
