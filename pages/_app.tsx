@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import type { AppProps } from "next/app";
 import "../styles/globals.css";
 import { hotjar } from "react-hotjar";
@@ -10,11 +10,13 @@ type User = Pick<FirebaseUser, "uid" | "displayName">;
 
 const App = ({ Component, pageProps }: AppProps) => {
   const [init, setInit] = useState<Boolean>(false);
-  const [isLoggedIn, setIsLoggedIn] = useState<Object | null>(
-    authService.currentUser
-  );
+  // const [isLoggedIn, setIsLoggedIn] = useState<Object | null>(
+  //   authService.currentUser
+  // );
+  const [userObj, setUserObj] = useState<User | null>(null);
+  const isLoggedIn = React.useMemo(() => userObj !== null, [userObj]);
 
-  const [userObj, setUserObj] = useState<Object | null>(null);
+  console.log(isLoggedIn);
 
   useEffect(() => {
     hotjar.initialize(3341604, 6);
@@ -22,13 +24,12 @@ const App = ({ Component, pageProps }: AppProps) => {
 
     return onAuthStateChanged(auth, (user) => {
       if (user) {
-        setIsLoggedIn(true);
         setUserObj({
           displayName: user.displayName,
           uid: user.uid,
         });
       } else {
-        setIsLoggedIn(false);
+        setUserObj(null);
       }
       setInit(true);
     });
