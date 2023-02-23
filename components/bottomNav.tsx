@@ -1,46 +1,51 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { WishListContext } from "@/store/wishListReducer";
 import styled from "styled-components";
 import Button from "./button";
 import { BsChat, BsSuitHeart, BsSuitHeartFill } from "react-icons/bs";
 
-const BottomNav = ({ item, cardData }) => {
+const BottomNav = ({ item }) => {
   const { state, dispatch } = useContext(WishListContext);
-  const [itemInList, setItemInList] = useState(false);
-  console.log(state);
-  useEffect(() => {
-    if (state) {
-      setItemInList(
-        state.items.some((wishListItem) => wishListItem.itemId === item.itemId)
-      );
-    }
-  }, [state, item.itemId]);
 
-  const handleClick = async (): Promise<void> => {
-    if (itemInList) {
-      dispatch({ type: "REMOVE_ITEM", payload: item.itemId });
-    } else {
+  console.log(state);
+
+  const handleClick = () => {
+    const isItemInList = state.items.some(
+      (wishListItem) => wishListItem.itemId === item.itemId
+    );
+
+    if (isItemInList) {
       dispatch({
-        type: "ADD_ITEM",
-        payload: {
-          itemId: item.itemId,
-          name: cardData.infoTitle,
-          description: cardData.infoDetail,
-          userId: item.userId,
-          mainImage: cardData.mainImage,
-          profileId: cardData.profileId,
-          price: cardData.price,
-        },
+        type: "REMOVE_ITEM",
+        payload: item.itemId,
+        accountId: item.userId,
+      });
+      dispatch({
+        type: "SET_IS_ITEM_IN_LIST",
+        payload: { itemId: item.itemId, value: false },
+        accountId: item.userId,
+      });
+    } else {
+      dispatch({ type: "ADD_ITEM", payload: item, accountId: item.userId });
+      dispatch({
+        type: "SET_IS_ITEM_IN_LIST",
+        payload: { itemId: item.itemId, value: true },
+        accountId: item.userId,
       });
     }
   };
+
   return (
     <Wrapper>
       <Button bgcolor="black" color="white" bdcolor="black" width="152px">
         <BsChat fill="white" /> <span>SEND MESSAGE</span>
       </Button>
       <Button bdcolor="#777777" width="152px" onClick={handleClick}>
-        {itemInList ? <BsSuitHeartFill fill="red" /> : <BsSuitHeart />}
+        {state.isItemInList?.[item.itemId] ? (
+          <BsSuitHeartFill fill="red" />
+        ) : (
+          <BsSuitHeart />
+        )}
         <span>WISH LIST</span>
       </Button>
     </Wrapper>

@@ -9,6 +9,7 @@ import PathBar from "@/components/pathBar";
 const WishList = () => {
   const { state } = useContext(WishListContext);
   const { userObj, isLoggedIn } = useUser();
+  console.log(state);
 
   const items = userObj
     ? state.items.filter((item) => item.userId === userObj.id)

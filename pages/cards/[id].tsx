@@ -1,4 +1,4 @@
-import React, { useReducer } from "react";
+import React from "react";
 import { useRouter } from "next/router";
 import Heading from "@/components/heading/header";
 import Nav from "@/components/nav";

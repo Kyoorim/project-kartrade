@@ -1,10 +1,41 @@
+import { useContext } from "react";
+import { WishListContext } from "@/store/wishListReducer";
 import styled from "styled-components";
 import Image from "next/image";
 import Heading from "./heading/header";
 import Link from "next/link";
 import { dummyCardInfo } from "@/asset/dummyCardInfo";
+import { BsSuitHeart, BsSuitHeartFill } from "react-icons/bs";
 
 const WishListCardBox = ({ item }) => {
+  const { state, dispatch } = useContext(WishListContext);
+
+  const handleClick = () => {
+    const isItemInList = state.items.some(
+      (wishListItem) => wishListItem.itemId === item.itemId
+    );
+
+    if (isItemInList) {
+      dispatch({
+        type: "REMOVE_ITEM",
+        payload: item.itemId,
+        accountId: item.userId,
+      });
+      dispatch({
+        type: "SET_IS_ITEM_IN_LIST",
+        payload: { itemId: item.itemId, value: false },
+        accountId: item.userId,
+      });
+    } else {
+      dispatch({ type: "ADD_ITEM", payload: item, accountId: item.userId });
+      dispatch({
+        type: "SET_IS_ITEM_IN_LIST",
+        payload: { itemId: item.itemId, value: true },
+        accountId: item.userId,
+      });
+    }
+  };
+
   return (
     <Wrapper>
       <PhotoContainer>
@@ -16,13 +47,22 @@ const WishListCardBox = ({ item }) => {
           ></Image>
         </Link>
         <ProfileContainer>
-          <Image
-            src={dummyCardInfo[parseInt(item.itemId) - 1].mainImage}
-            alt="mainImage"
-            style={{ width: "38px", height: "38px", borderRadius: "50%" }}
-          ></Image>
+          <IdBox>
+            <Image
+              src={dummyCardInfo[parseInt(item.itemId) - 1].mainImage}
+              alt="mainImage"
+              style={{ width: "38px", height: "38px", borderRadius: "50%" }}
+            ></Image>
 
-          <div>@{item.profileId}</div>
+            <div>@{item.profileId}</div>
+          </IdBox>
+          <div onClick={handleClick}>
+            {state.isItemInList ? (
+              <BsSuitHeartFill fill="red" />
+            ) : (
+              <BsSuitHeart />
+            )}
+          </div>
         </ProfileContainer>
       </PhotoContainer>
       <InfoContainer>
@@ -75,15 +115,17 @@ const PhotoContainer = styled.section`
 const ProfileContainer = styled.div`
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: space-between;
   border-bottom: 1px solid #d8d8d8;
   padding-top: 17px;
   padding-bottom: 15px;
+`;
+
+const IdBox = styled.div`
+  display: flex;
+  align-items: center;
   img {
-    margin-right: 9px;
-  }
-  div {
-    color: #515151;
+    margin-right: 10px;
   }
 `;
 
