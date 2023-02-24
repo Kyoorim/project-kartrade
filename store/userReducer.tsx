@@ -12,7 +12,7 @@ interface UserState {
   isLoggedIn: Object | null;
 }
 
-const UserContext = createContext<UserState>({
+export const UserContext = createContext<UserState>({
   userObj: null,
   init: false,
   isLoggedIn: null,

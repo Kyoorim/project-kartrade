@@ -1,4 +1,6 @@
-import { createContext, useReducer, useEffect } from "react";
+import React, {createContext, useReducer, useEffect, useContext} from "react";
+import {UserContext} from "@/store/userReducer";
+import {FCC} from "@/types";
 
 export type WishListItem = {
   itemId: number;
@@ -26,15 +28,17 @@ type WishListAction =
       accountId: string;
     };
 
-export function initialState(accountId: string): WishListState {
-  if (typeof window !== "undefined") {
+export function initialState(accountId?: string): WishListState {
+  let defaultValue = { items: [], isItemInList: {} };
+
+  if (accountId && typeof window !== "undefined") {
     const storedState = window.localStorage.getItem(`wishList_${accountId}`);
     return storedState
-      ? JSON.parse(storedState)
-      : { items: [], isItemInList: {} };
-  } else {
-    return { items: [], isItemInList: {} };
+        ? JSON.parse(storedState)
+        : defaultValue;
   }
+
+  return defaultValue;
 }
 
 export const wishListReducer = (
@@ -100,24 +104,22 @@ export const WishListContext = createContext<{
   dispatch: () => null,
 });
 
-export const WishListProvider: React.FC<{ accountId: string }> = ({
+export const WishListProvider: FCC = ({
   children,
-  accountId,
 }) => {
+  const { userObj } = useContext(UserContext);
   const [state, dispatch] = useReducer(
     wishListReducer,
-    initialState(accountId)
+    initialState(userObj?.id)
   );
 
   useEffect(() => {
-    const accountId = state.items[0]?.userId;
-    if (accountId) {
+    if (userObj?.id) {
       window.localStorage.setItem(
-        `wishList_${accountId}`,
+        `wishList_${userObj.id}`,
         JSON.stringify(state)
       );
     }
-    console.log(state);
   }, [state]);
 
   return (
