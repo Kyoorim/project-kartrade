@@ -31,8 +31,9 @@ type WishListAction =
 export function initialState(accountId?: string): WishListState {
   let defaultValue = { items: [], isItemInList: {} };
 
-  if (accountId && typeof window !== "undefined") {
+  if (typeof window !== "undefined") {
     const storedState = window.localStorage.getItem(`wishList_${accountId}`);
+    console.log(storedState);
     return storedState ? JSON.parse(storedState) : defaultValue;
   }
 
@@ -97,22 +98,28 @@ export const wishListReducer = (
 export const WishListContext = createContext<{
   state: WishListState;
   dispatch: React.Dispatch<WishListAction>;
+  accountId?: string;
 }>({
-  state: initialState(""),
+  state: initialState(),
   dispatch: () => null,
 });
 
 export const WishListProvider: FCC = ({ children }) => {
   const { userObj } = useContext(UserContext);
+  console.log(userObj, "userEffect");
+
   const [state, dispatch] = useReducer(
     wishListReducer,
     initialState(userObj?.id)
+    // initialState(accountId)
   );
 
   useEffect(() => {
     if (userObj?.id) {
+      // if (accountId) {
       window.localStorage.setItem(
-        `wishList_${userObj.id}`,
+        `wishList_${userObj?.id}`,
+        // `wishList_${accountId}`,
         JSON.stringify(state)
       );
     }

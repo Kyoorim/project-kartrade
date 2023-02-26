@@ -13,7 +13,6 @@ const BottomNav = ({ cardData }) => {
   const { userObj } = useUser();
   const userId = userObj ? userObj.id : "";
   console.log(userId);
-
   const { id } = router.query;
   const itemId = id ? parseInt(id as string, 10) : 0;
 
@@ -31,12 +30,15 @@ const BottomNav = ({ cardData }) => {
   console.log(item);
   console.log(cardData);
 
-  const handleClick = () => {
-    const isItemInList = state.items.some(
-      (wishListItem) => wishListItem.itemId === item.itemId
-    );
+  const isItemInList = state.isItemInList;
+  console.log(state);
 
-    if (isItemInList) {
+  const handleClick = () => {
+    // const isItemInList = state.items.some(
+    //   (wishListItem) => wishListItem.itemId === item.itemId
+    // );
+
+    if (isItemInList[item.itemId]) {
       dispatch({
         type: "REMOVE_ITEM",
         payload: item.itemId,
@@ -63,7 +65,7 @@ const BottomNav = ({ cardData }) => {
         <BsChat fill="white" /> <span>SEND MESSAGE</span>
       </Button>
       <Button bdcolor="#777777" width="152px" onClick={handleClick}>
-        {state.isItemInList?.[item.itemId] ? (
+        {isItemInList?.[item.itemId] ? (
           <BsSuitHeartFill fill="red" />
         ) : (
           <BsSuitHeart />

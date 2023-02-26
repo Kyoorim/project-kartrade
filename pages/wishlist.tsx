@@ -8,12 +8,10 @@ import PathBar from "@/components/pathBar";
 
 const WishList = () => {
   const { state } = useContext(WishListContext);
-  const { userObj, isLoggedIn } = useUser();
+  const { isLoggedIn } = useUser();
   console.log(state);
 
-  const items = userObj
-    ? state.items.filter((item) => item.userId === userObj.id)
-    : [];
+  const items = state.items;
   console.log(items);
   return (
     <BgWrapper>
@@ -79,7 +77,7 @@ const ContentContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: 50px;
+  margin-top: 10px;
 `;
 
 export default WishList;
