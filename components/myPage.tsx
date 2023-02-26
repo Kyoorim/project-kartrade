@@ -2,8 +2,13 @@ import styled from "styled-components";
 import Button from "./button";
 import { authService } from "@/firebase";
 import PathBar from "./pathBar";
+import { useUser } from "@/store/userReducer";
+import Heading from "./heading/header";
 
 const MyPage = () => {
+  const { userObj } = useUser();
+  console.log(userObj);
+
   const onLogoutClick = async (): Promise<void> => {
     authService.signOut();
     alert("로그아웃 되었습니다");
@@ -11,24 +16,40 @@ const MyPage = () => {
   return (
     <>
       <PathBar />
-      <LoginContainer>
-        <div>환영합니다</div>
-        <div>WISHLIST</div>
-
+      <MainContainer>
+        <LoginContainer>
+          <Heading level={4} mb={10} color="#777777">
+            Welcome
+          </Heading>
+          {userObj?.name ? (
+            <div>{userObj?.name}</div>
+          ) : (
+            <div>{userObj?.email}</div>
+          )}
+        </LoginContainer>
         <Button type="submit" onClick={onLogoutClick} width="100px">
           LOG OUT
         </Button>
-      </LoginContainer>
+      </MainContainer>
     </>
   );
 };
 
-const LoginContainer = styled.div`
-  margin-top: 50px;
+const MainContainer = styled.div`
+  height: 100%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+`;
+
+const LoginContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 30px;
 `;
 
 export default MyPage;

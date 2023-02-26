@@ -4,6 +4,7 @@ import { authService } from "../firebase";
 interface User {
   id: string;
   name: string;
+  email: string | null;
 }
 
 interface UserState {
@@ -38,6 +39,7 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
         const user = {
           id: firebaseUser.uid,
           name: firebaseUser.displayName || "",
+          email: firebaseUser.email,
         };
         setUserObj(user);
         setIsLoggedIn(true);
