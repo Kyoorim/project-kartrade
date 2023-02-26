@@ -1,4 +1,4 @@
-import { useState, useEffect, createContext, useContext } from "react";
+import React, { useState, useEffect, createContext, useContext } from "react";
 import { authService } from "../firebase";
 
 interface User {
@@ -27,9 +27,10 @@ interface UserProviderProps {
 export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
   const [userObj, setUserObj] = useState<User | null>(null);
   const [init, setInit] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState<Object | null>(
-    authService.currentUser
-  );
+  // const [isLoggedIn, setIsLoggedIn] = useState<Object | null>(
+  //   authService.currentUser
+  // );
+  const isLoggedIn = React.useMemo(() => userObj !== null, [userObj]);
 
   useEffect(() => {
     const unsubscribe = authService.onAuthStateChanged((firebaseUser) => {
@@ -40,9 +41,8 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
           name: firebaseUser.displayName || "",
         };
         setUserObj(user);
-        setIsLoggedIn(true);
       } else {
-        setIsLoggedIn(false);
+        setUserObj(null);
       }
       setInit(true);
     });

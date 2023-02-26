@@ -7,17 +7,25 @@ const PathBar = () => {
   const { isLoggedIn } = useUser();
 
   const router = useRouter();
-  const isAuth = router.asPath === "/auth";
-  const isCardDetail = router.asPath.includes("cards");
-  const isWishList = router.asPath === "/wishlist";
+  const path = router.asPath;
+
+  const routes = {
+    isAuth: path === "/auth",
+    isCardDetail: path.includes("cards"),
+    isWishList: path === "/wishlist",
+  };
+
+  // const isAuth = router.asPath === "/auth";
+  // const isCardDetail = router.asPath.includes("cards");
+  // const isWishList = router.asPath === "/wishlist";
   return (
     <Wrapper>
       <SortingContainer>
         <Home onClick={() => router.push("/")}>Home</Home>
         <FiChevronRight />
-        {isLoggedIn && isAuth && <span>My Page</span>}
-        {isCardDetail && <span>Detail Page</span>}
-        {isWishList && <span>Wish List</span>}
+        {isLoggedIn && routes.isAuth && <span>My Page</span>}
+        {routes.isCardDetail && <span>Detail Page</span>}
+        {routes.isWishList && <span>Wish List</span>}
       </SortingContainer>
     </Wrapper>
   );

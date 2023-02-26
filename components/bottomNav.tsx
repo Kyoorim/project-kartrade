@@ -3,11 +3,33 @@ import { WishListContext } from "@/store/wishListReducer";
 import styled from "styled-components";
 import Button from "./button";
 import { BsChat, BsSuitHeart, BsSuitHeartFill } from "react-icons/bs";
+import { useUser } from "@/store/userReducer";
+import { useRouter } from "next/router";
+import { WishListItem } from "@/store/wishListReducer";
 
-const BottomNav = ({ item }) => {
+const BottomNav = ({ cardData }) => {
   const { state, dispatch } = useContext(WishListContext);
+  const router = useRouter();
+  const { userObj } = useUser();
+  const userId = userObj ? userObj.id : "";
+  console.log(userId);
 
-  console.log(state);
+  const { id } = router.query;
+  const itemId = id ? parseInt(id as string, 10) : 0;
+
+  console.log(cardData);
+  const item: WishListItem = {
+    itemId: itemId,
+    name: cardData.infoTitle,
+    description: cardData.infoDetail,
+    userId,
+    mainImage: cardData.mainImage,
+    profileId: cardData.profileId,
+    price: cardData.price,
+    accountId: userId,
+  };
+  console.log(item);
+  console.log(cardData);
 
   const handleClick = () => {
     const isItemInList = state.items.some(
