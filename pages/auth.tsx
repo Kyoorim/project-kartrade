@@ -171,6 +171,7 @@ const AuthContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  height: 100%;
 
   svg {
     width: 20px;
