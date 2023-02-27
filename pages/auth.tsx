@@ -160,7 +160,6 @@ const Main = styled.section`
     position: relative;
     width: 100%;
     max-width: 420px;
-    min-height: 100vh;
     margin: 0 0 0 calc(50% - 1px);
     zoom: 1.25;
   }
@@ -171,7 +170,7 @@ const AuthContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100%;
+  /* height: 100%; */
 
   svg {
     width: 20px;

@@ -6,7 +6,7 @@ import { useUser } from "@/store/userReducer";
 import Heading from "./heading/header";
 
 const MyPage = () => {
-  const { userObj } = useUser();
+  const { userObj, isLoggedIn } = useUser();
   const onLogoutClick = async (): Promise<void> => {
     authService.signOut();
     alert("로그아웃 되었습니다");
@@ -14,7 +14,7 @@ const MyPage = () => {
 
   return (
     <>
-      <PathBar title={isLoggedIn ? 'My Page' : ''} />
+      <PathBar title={isLoggedIn ? "My Page" : ""} />
       <MainContainer>
         <LoginContainer>
           <Heading level={4} mb={10} color="#777777">
@@ -35,7 +35,6 @@ const MyPage = () => {
 };
 
 const MainContainer = styled.div`
-  height: 100%;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -47,6 +46,7 @@ const LoginContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin-top: 50px;
   margin-bottom: 30px;
 `;
 
