@@ -21,20 +21,21 @@ type WishListState = {
 type WishListAction =
   | { type: "ADD_ITEM"; payload: WishListItem; accountId?: string }
   | { type: "REMOVE_ITEM"; payload: number; accountId?: string }
-  | { type: "SAVE_ITEM"; payload: string; accountId?: string }
-  | {
-      type: "SET_IS_ITEM_IN_LIST";
-      payload: { itemId: number; value: boolean };
-      accountId?: string;
-    };
+  | { type: "SAVE_ITEM"; payload: string; accountId?: string };
 
 export function initialState(accountId?: string): WishListState {
   let defaultValue = { items: [], isItemInList: {} };
 
   if (typeof window !== "undefined") {
     const storedState = window.localStorage.getItem(`wishList_${accountId}`);
-    console.log(storedState);
-    return storedState ? JSON.parse(storedState) : defaultValue;
+
+    if (storedState) {
+      const parsedState = JSON.parse(storedState);
+      return {
+        items: parsedState.items,
+        isItemInList: parsedState.isItemInList || {},
+      };
+    }
   }
 
   return defaultValue;
@@ -47,25 +48,36 @@ export const wishListReducer = (
   switch (action.type) {
     case "ADD_ITEM":
       const updatedItems = [...state.items, action.payload];
+      const updatedIsItemInList = {
+        ...state.isItemInList,
+        [action.payload.itemId]: true,
+      };
       window.localStorage.setItem(
         `wishList_${action.accountId}`,
-        JSON.stringify({ items: updatedItems })
+        JSON.stringify({
+          items: updatedItems,
+          isItemInList: updatedIsItemInList,
+        })
       );
       return {
         ...state,
         items: updatedItems,
-        isItemInList: {
-          ...state.isItemInList,
-          [action.payload.itemId]: true, //
-        },
+        isItemInList: updatedIsItemInList,
       };
     case "REMOVE_ITEM":
+      const removedItemId = action.payload;
       const filteredItems = state.items.filter(
-        (item) => item.itemId !== action.payload
+        (item) => item.itemId !== removedItemId
       );
       window.localStorage.setItem(
         `wishList_${action.accountId}`,
-        JSON.stringify({ items: filteredItems })
+        JSON.stringify({
+          items: filteredItems,
+          isItemInList: {
+            ...state.isItemInList,
+            [action.payload]: false,
+          },
+        })
       );
       return {
         ...state,
@@ -79,17 +91,11 @@ export const wishListReducer = (
       const storedState = window.localStorage.getItem(
         `wishList_${action.accountId}`
       );
-      return storedState ? JSON.parse(storedState) : { items: [] };
+      return storedState
+        ? JSON.parse(storedState)
+        : { items: [], isItemInList: {} };
     }
-    case "SET_IS_ITEM_IN_LIST": {
-      return {
-        ...state,
-        isItemInList: {
-          ...state.isItemInList,
-          [action.payload.itemId]: action.payload.value,
-        },
-      };
-    }
+
     default:
       return state;
   }
@@ -106,24 +112,20 @@ export const WishListContext = createContext<{
 
 export const WishListProvider: FCC = ({ children }) => {
   const { userObj } = useContext(UserContext);
-  console.log(userObj, "userEffect");
 
   const [state, dispatch] = useReducer(
     wishListReducer,
-    initialState(userObj?.id)
-    // initialState(accountId)
+    initialState(userObj ? userObj.id : undefined)
   );
 
-  useEffect(() => {
-    if (userObj?.id) {
-      // if (accountId) {
-      window.localStorage.setItem(
-        `wishList_${userObj?.id}`,
-        // `wishList_${accountId}`,
-        JSON.stringify(state)
-      );
-    }
-  }, [state]);
+  // useEffect(() => {
+  //   if (userObj) {
+  //     window.localStorage.setItem(
+  //       `wishList_${userObj.id}`,
+  //       JSON.stringify(state)
+  //     );
+  //   }
+  // }, [state, userObj]);
 
   return (
     <WishListContext.Provider value={{ state, dispatch }}>

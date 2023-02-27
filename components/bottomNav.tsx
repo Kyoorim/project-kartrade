@@ -1,4 +1,4 @@
-import {useContext, useMemo} from "react";
+import { useContext } from "react";
 import { WishListContext } from "@/store/wishListReducer";
 import styled from "styled-components";
 import Button from "./button";
@@ -9,7 +9,7 @@ import { WishListItem } from "@/store/wishListReducer";
 import React from "react";
 
 const BottomNav: React.FC = ({ cardData }) => {
-  const { state, dispatch } = useContext(WishListContext);
+  const { dispatch } = useContext(WishListContext);
   const router = useRouter();
   const { userObj } = useUser();
   const userId = userObj ? userObj.id : "";
@@ -17,7 +17,6 @@ const BottomNav: React.FC = ({ cardData }) => {
   const { id } = router.query;
   const itemId = id ? parseInt(id as string, 10) : 0;
 
-  console.log(cardData);
   const item: WishListItem = {
     itemId: itemId,
     name: cardData.infoTitle,
@@ -28,18 +27,19 @@ const BottomNav: React.FC = ({ cardData }) => {
     price: cardData.price,
     accountId: userId,
   };
-  console.log(item);
-  console.log(cardData);
+  const accountId = userObj?.id;
+  const getItems = () => {
+    if (typeof window !== "undefined") {
+      const items = window.localStorage.getItem(`wishList_${accountId}`);
 
-  const isItemInList = state.isItemInList;
-  console.log(state);
+      return JSON.parse(items);
+    }
+  };
+
+  const isItemInList = getItems()?.isItemInList;
 
   const handleClick = () => {
-    // const isItemInList = state.items.some(
-    //   (wishListItem) => wishListItem.itemId === item.itemId
-    // );
-
-    if (isItemInList[item.itemId]) {
+    if (isItemInList?.[item.itemId]) {
       dispatch({
         type: "REMOVE_ITEM",
         payload: item.itemId,

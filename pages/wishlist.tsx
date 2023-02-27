@@ -1,26 +1,33 @@
 import styled from "styled-components";
-import { useContext } from "react";
-import { WishListContext } from "@/store/wishListReducer";
 import { useUser } from "@/store/userReducer";
 import Nav from "@/components/nav";
 import WishListCardBox from "@/components/wishListCardBox";
 import PathBar from "@/components/pathBar";
 
 const WishList = () => {
-  const { state } = useContext(WishListContext);
-  const { isLoggedIn } = useUser();
+  const { isLoggedIn, userObj } = useUser();
 
-  const items = state.items;
+  const accountId = userObj?.id;
+
+  const getItems = () => {
+    if (typeof window !== "undefined") {
+      const items = window.localStorage.getItem(`wishList_${accountId}`);
+
+      return JSON.parse(items);
+    }
+  };
+
+  const items = getItems()?.items;
 
   return (
     <BgWrapper>
       <Main>
         <Nav />
-        <PathBar title={'Wish List'} />
+        <PathBar title={"Wish List"} />
         <ContentContainer>
           {isLoggedIn ? (
             <>
-              {items.map((item) => (
+              {items?.map((item) => (
                 <WishListCardBox key={item.itemId} item={item} />
               ))}
             </>

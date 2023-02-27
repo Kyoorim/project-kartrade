@@ -6,34 +6,29 @@ import Heading from "./heading/header";
 import Link from "next/link";
 import { dummyCardInfo } from "@/asset/dummyCardInfo";
 import { BsSuitHeart, BsSuitHeartFill } from "react-icons/bs";
+import { useUser } from "@/store/userReducer";
 
 const WishListCardBox = ({ item }) => {
-  const { state, dispatch } = useContext(WishListContext);
+  const { dispatch } = useContext(WishListContext);
+  const { userObj } = useUser();
+
+  const accountId = userObj?.id;
+  const getItems = () => {
+    if (typeof window !== "undefined") {
+      const items = window.localStorage.getItem(`wishList_${accountId}`);
+
+      return JSON.parse(items);
+    }
+  };
+
+  const isItemInList = getItems()?.isItemInList;
 
   const handleClick = () => {
-    const isItemInList = state.items.some(
-      (wishListItem) => wishListItem.itemId === item.itemId
-    );
-
-    if (isItemInList) {
-      dispatch({
-        type: "REMOVE_ITEM",
-        payload: item.itemId,
-        accountId: item.userId,
-      });
-      dispatch({
-        type: "SET_IS_ITEM_IN_LIST",
-        payload: { itemId: item.itemId, value: false },
-        accountId: item.userId,
-      });
-    } else {
-      dispatch({ type: "ADD_ITEM", payload: item, accountId: item.userId });
-      dispatch({
-        type: "SET_IS_ITEM_IN_LIST",
-        payload: { itemId: item.itemId, value: true },
-        accountId: item.userId,
-      });
-    }
+    dispatch({
+      type: "REMOVE_ITEM",
+      payload: item.itemId,
+      accountId: item.userId,
+    });
   };
 
   return (
@@ -46,6 +41,7 @@ const WishListCardBox = ({ item }) => {
             style={{ maxWidth: "370px", minHeight: "325px" }}
           ></Image>
         </Link>
+
         <ProfileContainer>
           <IdBox>
             <Image
@@ -57,7 +53,7 @@ const WishListCardBox = ({ item }) => {
             <div>@{item.profileId}</div>
           </IdBox>
           <div onClick={handleClick}>
-            {state.isItemInList ? (
+            {isItemInList?.[item.itemId] ? (
               <BsSuitHeartFill fill="red" />
             ) : (
               <BsSuitHeart />
