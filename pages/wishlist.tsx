@@ -9,15 +9,14 @@ import PathBar from "@/components/pathBar";
 const WishList = () => {
   const { state } = useContext(WishListContext);
   const { isLoggedIn } = useUser();
-  console.log(state);
 
   const items = state.items;
-  console.log(items);
+
   return (
     <BgWrapper>
       <Main>
         <Nav />
-        <PathBar />
+        <PathBar title={'Wish List'} />
         <ContentContainer>
           {isLoggedIn ? (
             <>

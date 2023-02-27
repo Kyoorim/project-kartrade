@@ -11,9 +11,10 @@ const MyPage = () => {
     authService.signOut();
     alert("로그아웃 되었습니다");
   };
+
   return (
     <>
-      <PathBar />
+      <PathBar title={isLoggedIn ? 'My Page' : ''} />
       <MainContainer>
         <LoginContainer>
           <Heading level={4} mb={10} color="#777777">

@@ -28,9 +28,6 @@ interface UserProviderProps {
 export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
   const [userObj, setUserObj] = useState<User | null>(null);
   const [init, setInit] = useState(false);
-  // const [isLoggedIn, setIsLoggedIn] = useState<Object | null>(
-  //   authService.currentUser
-  // );
   const isLoggedIn = React.useMemo(() => userObj !== null, [userObj]);
 
   useEffect(() => {

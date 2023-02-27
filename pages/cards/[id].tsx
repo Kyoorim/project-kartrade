@@ -19,7 +19,7 @@ const CardDetail = ({ cardData }: { cardData: CardInfo }) => {
     <BgWrapper>
       <Main>
         <Nav />
-        <PathBar />
+        <PathBar title={'Detail Page'} />
         <ContentWrapper>
           <ProfileContainer>
             <ProfileBox>

@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import {useContext, useMemo} from "react";
 import { WishListContext } from "@/store/wishListReducer";
 import styled from "styled-components";
 import Button from "./button";
@@ -6,8 +6,9 @@ import { BsChat, BsSuitHeart, BsSuitHeartFill } from "react-icons/bs";
 import { useUser } from "@/store/userReducer";
 import { useRouter } from "next/router";
 import { WishListItem } from "@/store/wishListReducer";
+import React from "react";
 
-const BottomNav = ({ cardData }) => {
+const BottomNav: React.FC = ({ cardData }) => {
   const { state, dispatch } = useContext(WishListContext);
   const router = useRouter();
   const { userObj } = useUser();
@@ -44,18 +45,8 @@ const BottomNav = ({ cardData }) => {
         payload: item.itemId,
         accountId: item.userId,
       });
-      dispatch({
-        type: "SET_IS_ITEM_IN_LIST",
-        payload: { itemId: item.itemId, value: false },
-        accountId: item.userId,
-      });
     } else {
       dispatch({ type: "ADD_ITEM", payload: item, accountId: item.userId });
-      dispatch({
-        type: "SET_IS_ITEM_IN_LIST",
-        payload: { itemId: item.itemId, value: true },
-        accountId: item.userId,
-      });
     }
   };
 

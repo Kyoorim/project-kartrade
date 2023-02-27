@@ -1,31 +1,17 @@
 import styled from "styled-components";
 import { FiChevronRight } from "react-icons/fi";
 import { useRouter } from "next/router";
-import { useUser } from "@/store/userReducer";
+import React from "react";
 
-const PathBar = () => {
-  const { isLoggedIn } = useUser();
-
+const PathBar: React.FC<{title: string}> = ({title}) => {
   const router = useRouter();
-  const path = router.asPath;
 
-  const routes = {
-    isAuth: path === "/auth",
-    isCardDetail: path.includes("cards"),
-    isWishList: path === "/wishlist",
-  };
-
-  // const isAuth = router.asPath === "/auth";
-  // const isCardDetail = router.asPath.includes("cards");
-  // const isWishList = router.asPath === "/wishlist";
   return (
     <Wrapper>
       <SortingContainer>
         <Home onClick={() => router.push("/")}>Home</Home>
         <FiChevronRight />
-        {isLoggedIn && routes.isAuth && <span>My Page</span>}
-        {routes.isCardDetail && <span>Detail Page</span>}
-        {routes.isWishList && <span>Wish List</span>}
+        <span>{title}</span>
       </SortingContainer>
     </Wrapper>
   );
