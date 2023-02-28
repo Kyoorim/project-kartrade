@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useReducer } from "react";
+import { useRouter } from "next/router";
 import Heading from "@/components/heading/header";
 import Nav from "@/components/nav";
 import PathBar from "@/components/pathBar";
@@ -15,6 +16,7 @@ import { CardInfo } from "@/types";
 import { InferGetStaticPropsType } from "next";
 
 const CardDetail = ({ cardData }: { cardData: CardInfo }) => {
+
   return (
     <BgWrapper>
       <Main>

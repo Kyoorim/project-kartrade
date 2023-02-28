@@ -43,6 +43,7 @@ const BottomNav = ({ cardData }: { cardData: CardInfo }) => {
     }
   };
 
+
   return (
     <Wrapper>
       <Button bgcolor="black" color="white" bdcolor="black" width="152px">
@@ -56,6 +57,7 @@ const BottomNav = ({ cardData }: { cardData: CardInfo }) => {
         )}
         <span>WISH LIST</span>
       </Button>
+      {/* </Button> */}
     </Wrapper>
   );
 };

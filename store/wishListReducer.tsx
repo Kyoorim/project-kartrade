@@ -2,6 +2,7 @@ import React, { createContext, useReducer, useEffect, useContext } from "react";
 import { UserContext } from "@/store/userReducer";
 import { FCC } from "@/types";
 
+
 export type WishListItem = {
   itemId: number;
   name: string;
@@ -22,6 +23,7 @@ type WishListAction =
   | { type: "ADD_ITEM"; payload: WishListItem; accountId?: string }
   | { type: "REMOVE_ITEM"; payload: number; accountId?: string }
   | { type: "SAVE_ITEM"; payload: WishListState; accountId?: string };
+};
 
 export const wishListReducer = (
   state: WishListState,
@@ -75,7 +77,6 @@ export const wishListReducer = (
       return action.payload;
 
     default:
-      console.log(state);
       return state;
   }
 };

@@ -8,6 +8,7 @@ import search from "../public/search.svg";
 import account from "../public/account.svg";
 import { BsSuitHeart } from "react-icons/bs";
 
+
 const Nav = () => {
   const [searchValue, setSearchValue] = useState("");
   const [isOpened, setIsOpened] = useState(false);
@@ -94,6 +95,17 @@ const MenuContainer = styled.div`
   display: flex;
   justify-content: space-around;
   align-items: center;
+`;
+
+const MenuBar = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-top: 1.6px solid;
+  border-bottom: 1.6px solid;
+  height: 12px;
+  width: 17px;
+  margin-left: 25px;
 `;
 
 const SearchBar = styled.div`
