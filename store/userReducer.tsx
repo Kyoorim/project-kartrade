@@ -38,7 +38,6 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
           name: firebaseUser.displayName || "",
           email: firebaseUser.email,
         };
-        console.log(user, "user");
         setUserObj(user);
       } else {
         setUserObj(null);

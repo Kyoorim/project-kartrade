@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { WishListContext } from "@/store/wishListReducer";
+import { WishListContext, WishListItem } from "@/store/wishListReducer";
 import styled from "styled-components";
 import Image from "next/image";
 import Heading from "./heading/header";
@@ -7,7 +7,7 @@ import Link from "next/link";
 import { dummyCardInfo } from "@/asset/dummyCardInfo";
 import { BsSuitHeart, BsSuitHeartFill } from "react-icons/bs";
 
-const WishListCardBox = ({ item }) => {
+const WishListCardBox: React.FC<{ item: WishListItem }> = ({ item }) => {
   const { state, dispatch } = useContext(WishListContext);
 
   const isItemInList = state.isItemInList;
@@ -25,7 +25,7 @@ const WishListCardBox = ({ item }) => {
       <PhotoContainer>
         <Link href={`/cards/${item.itemId}`}>
           <Image
-            src={dummyCardInfo[parseInt(item.itemId) - 1].mainImage}
+            src={dummyCardInfo[item.itemId - 1].mainImage}
             alt="mainImage"
             style={{ maxWidth: "370px", minHeight: "325px" }}
           ></Image>
@@ -34,7 +34,7 @@ const WishListCardBox = ({ item }) => {
         <ProfileContainer>
           <IdBox>
             <Image
-              src={dummyCardInfo[parseInt(item.itemId) - 1].mainImage}
+              src={dummyCardInfo[item.itemId - 1].mainImage}
               alt="mainImage"
               style={{ width: "38px", height: "38px", borderRadius: "50%" }}
             ></Image>
