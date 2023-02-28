@@ -15,13 +15,13 @@ export type WishListItem = {
 
 type WishListState = {
   items: WishListItem[];
-  isItemInList: Record<string, Record<number, boolean>>;
+  isItemInList: Record<number, boolean>;
 };
 
 type WishListAction =
   | { type: "ADD_ITEM"; payload: WishListItem; accountId?: string }
   | { type: "REMOVE_ITEM"; payload: number; accountId?: string }
-  | { type: "SAVE_ITEM"; payload: string; accountId?: string };
+  | { type: "SAVE_ITEM"; payload: WishListState; accountId?: string };
 
 export const wishListReducer = (
   state: WishListState,
@@ -71,6 +71,7 @@ export const wishListReducer = (
       };
 
     case "SAVE_ITEM":
+      console.log(action.payload);
       return action.payload;
 
     default:
@@ -91,7 +92,10 @@ export const WishListContext = createContext<{
 
 export const WishListProvider: FCC = ({ children }) => {
   const { userObj } = useContext(UserContext);
-  const [state, dispatch] = useReducer(wishListReducer, {});
+  const [state, dispatch] = useReducer(wishListReducer, {
+    items: [],
+    isItemInList: {},
+  });
 
   useEffect(() => {
     const accountId = userObj ? userObj.id : undefined;

@@ -7,8 +7,9 @@ import { useUser } from "@/store/userReducer";
 import { useRouter } from "next/router";
 import { WishListItem } from "@/store/wishListReducer";
 import React from "react";
+import { CardInfo } from "@/types";
 
-const BottomNav: React.FC = ({ cardData }) => {
+const BottomNav = ({ cardData }: { cardData: CardInfo }) => {
   const { state, dispatch } = useContext(WishListContext);
   const router = useRouter();
   const { userObj } = useUser();
@@ -30,7 +31,7 @@ const BottomNav: React.FC = ({ cardData }) => {
 
   const isItemInList = state.isItemInList;
 
-  const handleClick = () => {
+  const handleClick = async () => {
     if (isItemInList?.[item.itemId]) {
       dispatch({
         type: "REMOVE_ITEM",
