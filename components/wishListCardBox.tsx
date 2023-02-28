@@ -6,22 +6,11 @@ import Heading from "./heading/header";
 import Link from "next/link";
 import { dummyCardInfo } from "@/asset/dummyCardInfo";
 import { BsSuitHeart, BsSuitHeartFill } from "react-icons/bs";
-import { useUser } from "@/store/userReducer";
 
 const WishListCardBox = ({ item }) => {
-  const { dispatch } = useContext(WishListContext);
-  const { userObj } = useUser();
+  const { state, dispatch } = useContext(WishListContext);
 
-  const accountId = userObj?.id;
-  const getItems = () => {
-    if (typeof window !== "undefined") {
-      const items = window.localStorage.getItem(`wishList_${accountId}`);
-
-      return JSON.parse(items);
-    }
-  };
-
-  const isItemInList = getItems()?.isItemInList;
+  const isItemInList = state.isItemInList;
 
   const handleClick = () => {
     dispatch({

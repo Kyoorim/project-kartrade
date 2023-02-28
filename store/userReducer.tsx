@@ -32,13 +32,13 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
 
   useEffect(() => {
     const unsubscribe = authService.onAuthStateChanged((firebaseUser) => {
-      console.log(firebaseUser);
       if (firebaseUser) {
         const user = {
           id: firebaseUser.uid,
           name: firebaseUser.displayName || "",
           email: firebaseUser.email,
         };
+        console.log(user, "user");
         setUserObj(user);
       } else {
         setUserObj(null);

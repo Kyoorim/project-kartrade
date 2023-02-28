@@ -3,22 +3,14 @@ import { useUser } from "@/store/userReducer";
 import Nav from "@/components/nav";
 import WishListCardBox from "@/components/wishListCardBox";
 import PathBar from "@/components/pathBar";
+import { useContext } from "react";
+import { WishListContext } from "@/store/wishListReducer";
 
 const WishList = () => {
-  const { isLoggedIn, userObj } = useUser();
+  const { isLoggedIn } = useUser();
+  const { state } = useContext(WishListContext);
 
-  const accountId = userObj?.id;
-
-  const getItems = () => {
-    if (typeof window !== "undefined") {
-      const items = window.localStorage.getItem(`wishList_${accountId}`);
-
-      return JSON.parse(items);
-    }
-  };
-
-  const items = getItems()?.items;
-
+  const items = state.items;
   return (
     <BgWrapper>
       <Main>

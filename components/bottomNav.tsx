@@ -9,7 +9,7 @@ import { WishListItem } from "@/store/wishListReducer";
 import React from "react";
 
 const BottomNav: React.FC = ({ cardData }) => {
-  const { dispatch } = useContext(WishListContext);
+  const { state, dispatch } = useContext(WishListContext);
   const router = useRouter();
   const { userObj } = useUser();
   const userId = userObj ? userObj.id : "";
@@ -27,16 +27,8 @@ const BottomNav: React.FC = ({ cardData }) => {
     price: cardData.price,
     accountId: userId,
   };
-  const accountId = userObj?.id;
-  const getItems = () => {
-    if (typeof window !== "undefined") {
-      const items = window.localStorage.getItem(`wishList_${accountId}`);
 
-      return JSON.parse(items);
-    }
-  };
-
-  const isItemInList = getItems()?.isItemInList;
+  const isItemInList = state.isItemInList;
 
   const handleClick = () => {
     if (isItemInList?.[item.itemId]) {

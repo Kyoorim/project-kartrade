@@ -23,24 +23,6 @@ type WishListAction =
   | { type: "REMOVE_ITEM"; payload: number; accountId?: string }
   | { type: "SAVE_ITEM"; payload: string; accountId?: string };
 
-export function initialState(accountId?: string): WishListState {
-  let defaultValue = { items: [], isItemInList: {} };
-
-  if (typeof window !== "undefined") {
-    const storedState = window.localStorage.getItem(`wishList_${accountId}`);
-
-    if (storedState) {
-      const parsedState = JSON.parse(storedState);
-      return {
-        items: parsedState.items,
-        isItemInList: parsedState.isItemInList || {},
-      };
-    }
-  }
-
-  return defaultValue;
-}
-
 export const wishListReducer = (
   state: WishListState,
   action: WishListAction
@@ -87,16 +69,12 @@ export const wishListReducer = (
           [action.payload]: false,
         },
       };
-    case "SAVE_ITEM": {
-      const storedState = window.localStorage.getItem(
-        `wishList_${action.accountId}`
-      );
-      return storedState
-        ? JSON.parse(storedState)
-        : { items: [], isItemInList: {} };
-    }
+
+    case "SAVE_ITEM":
+      return action.payload;
 
     default:
+      console.log(state);
       return state;
   }
 };
@@ -106,26 +84,26 @@ export const WishListContext = createContext<{
   dispatch: React.Dispatch<WishListAction>;
   accountId?: string;
 }>({
-  state: initialState(),
+  state: { items: [], isItemInList: {} },
   dispatch: () => null,
+  accountId: undefined,
 });
 
 export const WishListProvider: FCC = ({ children }) => {
   const { userObj } = useContext(UserContext);
+  const [state, dispatch] = useReducer(wishListReducer, {});
 
-  const [state, dispatch] = useReducer(
-    wishListReducer,
-    initialState(userObj ? userObj.id : undefined)
-  );
+  useEffect(() => {
+    const accountId = userObj ? userObj.id : undefined;
+    const storedState = window.localStorage.getItem(`wishList_${accountId}`);
+    const initialState = storedState
+      ? JSON.parse(storedState)
+      : { items: [], isItemInList: {} };
 
-  // useEffect(() => {
-  //   if (userObj) {
-  //     window.localStorage.setItem(
-  //       `wishList_${userObj.id}`,
-  //       JSON.stringify(state)
-  //     );
-  //   }
-  // }, [state, userObj]);
+    if (initialState) {
+      dispatch({ type: "SAVE_ITEM", payload: initialState });
+    }
+  }, [userObj?.id]);
 
   return (
     <WishListContext.Provider value={{ state, dispatch }}>
