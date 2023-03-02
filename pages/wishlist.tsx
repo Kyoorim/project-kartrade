@@ -45,6 +45,7 @@ const BgWrapper = styled.div`
   background-repeat: no-repeat;
   background-position-x: 15%;
   background-position-y: center;
+
   ::-webkit-scrollbar {
     display: none;
   }
@@ -58,6 +59,7 @@ const Main = styled.section`
   max-width: 420px;
   height: 100vh;
   margin: 0 auto;
+
   @media only screen and (min-width: 800px) {
     position: relative;
     width: 100%;

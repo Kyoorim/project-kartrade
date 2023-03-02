@@ -1,50 +1,53 @@
-import { useContext } from "react";
-import { WishListContext } from "@/store/wishListReducer";
 import styled from "styled-components";
 import Button from "./button";
 import { authService } from "@/firebase";
 import PathBar from "./pathBar";
-import { useUser } from "@/store/userProvider";
-import WishListCardBox from "./wishListCardBox";
+import { useUser } from "@/store/userReducer";
+import Heading from "./heading/header";
 
-const MyPage: React.FC<{ isLoggedIn: Boolean }> = ({ isLoggedIn }) => {
-  const { state } = useContext(WishListContext);
-  const { user } = useUser();
-  console.log(state);
-
-  const items = user
-    ? state.items.filter((item) => item.userId === user.id)
-    : [];
-
-  console.log(items);
-
+const MyPage = () => {
+  const { userObj, isLoggedIn } = useUser();
   const onLogoutClick = async (): Promise<void> => {
     authService.signOut();
     alert("로그아웃 되었습니다");
   };
+
   return (
     <>
-      <PathBar isLoggedIn={isLoggedIn} />
-      <LoginContainer>
-        <div>환영합니다</div>
-        <div>WISHLIST</div>
-        {items.map((item) => (
-          <WishListCardBox key={item.itemId} item={item} />
-        ))}
+      <PathBar title={isLoggedIn ? "My Page" : ""} />
+      <MainContainer>
+        <LoginContainer>
+          <Heading level={4} mb={10} color="#777777">
+            Welcome
+          </Heading>
+          {userObj?.name ? (
+            <div>{userObj?.name}</div>
+          ) : (
+            <div>{userObj?.email}</div>
+          )}
+        </LoginContainer>
         <Button type="submit" onClick={onLogoutClick} width="100px">
           LOG OUT
         </Button>
-      </LoginContainer>
+      </MainContainer>
     </>
   );
 };
 
-const LoginContainer = styled.div`
-  margin-top: 50px;
+const MainContainer = styled.div`
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+`;
+const LoginContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
+  margin-bottom: 30px;
 `;
 
 export default MyPage;

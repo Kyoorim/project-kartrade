@@ -6,45 +6,22 @@ import PathBar from "@/components/pathBar";
 import styled from "styled-components";
 import Footer from "@/components/footer";
 import Image from "next/image";
-import {BsChat} from "react-icons/bs";
-
-import {getPostDetails, getPostIdList} from "../../lib/posts";
+import { BsChat } from "react-icons/bs";
+import { getPostDetails, getPostIdList } from "../../lib/posts";
 import BottomNav from "@/components/bottomNav";
 import PhotoBox from "@/components/photoBox";
 import QuantityBox from "@/components/quantityBox";
 import SpecificDetails from "@/components/specificDetails";
 import { CardInfo } from "@/types";
 import { InferGetStaticPropsType } from "next";
-import { WishListItem } from "@/store/wishListReducer";
-import { useUser } from "@/store/userProvider";
 
 const CardDetail = ({ cardData }: { cardData: CardInfo }) => {
-  const router = useRouter();
-  const { user } = useUser();
-  console.log({ user });
-  const userId = user ? user.id : "";
-  console.log(userId);
-
-  const { id } = router.query;
-  const itemId = id ? parseInt(id as string, 10) : 0;
-
-  const item: WishListItem = {
-    itemId: itemId,
-    name: cardData.infoTitle,
-    description: cardData.infoDetail,
-    userId,
-    mainImage: cardData.mainImage,
-    profileId: cardData.profileId,
-    price: cardData.price,
-  };
-  console.log(item);
-  console.log(cardData);
 
   return (
     <BgWrapper>
       <Main>
         <Nav />
-        <PathBar />
+        <PathBar title={'Detail Page'} />
         <ContentWrapper>
           <ProfileContainer>
             <ProfileBox>
@@ -77,7 +54,7 @@ const CardDetail = ({ cardData }: { cardData: CardInfo }) => {
         <QuantityBox />
         <SpecificDetails cardData={cardData} />
         <Footer />
-        <BottomNav item={item} cardData={cardData} />
+        <BottomNav cardData={cardData} />
       </Main>
     </BgWrapper>
   );

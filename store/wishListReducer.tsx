@@ -1,4 +1,6 @@
-import { createContext, useReducer, useEffect } from "react";
+import React, { createContext, useReducer, useEffect, useContext } from "react";
+import { UserContext } from "@/store/userReducer";
+import { FCC } from "@/types";
 
 export type WishListItem = {
   itemId: number;
@@ -8,23 +10,18 @@ export type WishListItem = {
   mainImage: any;
   profileId: string;
   price: number;
+  accountId: string;
 };
 
 type WishListState = {
   items: WishListItem[];
+  isItemInList: Record<number, boolean>;
 };
 
 type WishListAction =
-  | { type: "ADD_ITEM"; payload: WishListItem }
-  | { type: "REMOVE_ITEM"; payload: string }
-  | { type: "SAVE_ITEM"; payload: string };
-
-export function initialState(): WishListState {
-  if (typeof window !== "undefined") {
-    const storedState = window.localStorage.getItem("wishList");
-    return storedState ? JSON.parse(storedState) : { items: [] };
-  }
-}
+  | { type: "ADD_ITEM"; payload: WishListItem; accountId?: string }
+  | { type: "REMOVE_ITEM"; payload: number; accountId?: string }
+  | { type: "SAVE_ITEM"; payload: WishListState; accountId?: string };
 
 export const wishListReducer = (
   state: WishListState,
@@ -32,16 +29,50 @@ export const wishListReducer = (
 ): WishListState => {
   switch (action.type) {
     case "ADD_ITEM":
-      return { ...state, items: [...state.items, action.payload] };
-    case "REMOVE_ITEM":
+      const updatedItems = [...state.items, action.payload];
+      const updatedIsItemInList = {
+        ...state.isItemInList,
+        [action.payload.itemId]: true,
+      };
+      window.localStorage.setItem(
+        `wishList_${action.accountId}`,
+        JSON.stringify({
+          items: updatedItems,
+          isItemInList: updatedIsItemInList,
+        })
+      );
       return {
         ...state,
-        items: state.items.filter((item) => item.itemId !== action.payload),
+        items: updatedItems,
+        isItemInList: updatedIsItemInList,
       };
-    case "SAVE_ITEM": {
-      const storedState = window.localStorage.getItem("wishList");
-      return storedState ? JSON.parse(storedState) : { items: [] };
-    }
+    case "REMOVE_ITEM":
+      const removedItemId = action.payload;
+      const filteredItems = state.items.filter(
+        (item) => item.itemId !== removedItemId
+      );
+      window.localStorage.setItem(
+        `wishList_${action.accountId}`,
+        JSON.stringify({
+          items: filteredItems,
+          isItemInList: {
+            ...state.isItemInList,
+            [action.payload]: false,
+          },
+        })
+      );
+      return {
+        ...state,
+        items: filteredItems,
+        isItemInList: {
+          ...state.isItemInList,
+          [action.payload]: false,
+        },
+      };
+
+    case "SAVE_ITEM":
+      return action.payload;
+
     default:
       return state;
   }
@@ -50,17 +81,31 @@ export const wishListReducer = (
 export const WishListContext = createContext<{
   state: WishListState;
   dispatch: React.Dispatch<WishListAction>;
+  accountId?: string;
 }>({
-  state: initialState(),
+  state: { items: [], isItemInList: {} },
   dispatch: () => null,
+  accountId: undefined,
 });
 
-export const WishListProvider: React.FC = ({ children }) => {
-  const [state, dispatch] = useReducer(wishListReducer, initialState());
+export const WishListProvider: FCC = ({ children }) => {
+  const { userObj } = useContext(UserContext);
+  const [state, dispatch] = useReducer(wishListReducer, {
+    items: [],
+    isItemInList: {},
+  });
 
   useEffect(() => {
-    window.localStorage.setItem("wishList", JSON.stringify(state));
-  }, [state]);
+    const accountId = userObj ? userObj.id : undefined;
+    const storedState = window.localStorage.getItem(`wishList_${accountId}`);
+    const initialState = storedState
+      ? JSON.parse(storedState)
+      : { items: [], isItemInList: {} };
+
+    if (storedState) {
+      dispatch({ type: "SAVE_ITEM", payload: initialState });
+    }
+  }, [userObj]);
 
   return (
     <WishListContext.Provider value={{ state, dispatch }}>

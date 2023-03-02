@@ -1,29 +1,53 @@
+import { useContext } from "react";
+import { WishListContext, WishListItem } from "@/store/wishListReducer";
 import styled from "styled-components";
 import Image from "next/image";
 import Heading from "./heading/header";
 import Link from "next/link";
 import { dummyCardInfo } from "@/asset/dummyCardInfo";
+import { BsSuitHeart, BsSuitHeartFill } from "react-icons/bs";
 
-const WishListCardBox = ({ item }) => {
-  console.log(item.profileId);
+const WishListCardBox: React.FC<{ item: WishListItem }> = ({ item }) => {
+  const { state, dispatch } = useContext(WishListContext);
+
+  const isItemInList = state.isItemInList;
+
+  const handleClick = () => {
+    dispatch({
+      type: "REMOVE_ITEM",
+      payload: item.itemId,
+      accountId: item.userId,
+    });
+  };
+
   return (
     <Wrapper>
       <PhotoContainer>
         <Link href={`/cards/${item.itemId}`}>
           <Image
-            src={dummyCardInfo[parseInt(item.itemId) - 1].mainImage}
+            src={dummyCardInfo[item.itemId - 1].mainImage}
             alt="mainImage"
             style={{ maxWidth: "370px", minHeight: "325px" }}
           ></Image>
         </Link>
-        <ProfileContainer>
-          <Image
-            src={dummyCardInfo[parseInt(item.itemId) - 1].mainImage}
-            alt="mainImage"
-            style={{ width: "38px", height: "38px", borderRadius: "50%" }}
-          ></Image>
 
-          <div>@{item.profileId}</div>
+        <ProfileContainer>
+          <IdBox>
+            <Image
+              src={dummyCardInfo[item.itemId - 1].mainImage}
+              alt="mainImage"
+              style={{ width: "38px", height: "38px", borderRadius: "50%" }}
+            ></Image>
+
+            <div>@{item.profileId}</div>
+          </IdBox>
+          <div onClick={handleClick}>
+            {isItemInList?.[item.itemId] ? (
+              <BsSuitHeartFill fill="red" />
+            ) : (
+              <BsSuitHeart />
+            )}
+          </div>
         </ProfileContainer>
       </PhotoContainer>
       <InfoContainer>
@@ -76,15 +100,17 @@ const PhotoContainer = styled.section`
 const ProfileContainer = styled.div`
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: space-between;
   border-bottom: 1px solid #d8d8d8;
   padding-top: 17px;
   padding-bottom: 15px;
+`;
+
+const IdBox = styled.div`
+  display: flex;
+  align-items: center;
   img {
-    margin-right: 9px;
-  }
-  div {
-    color: #515151;
+    margin-right: 10px;
   }
 `;
 

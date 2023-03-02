@@ -13,8 +13,10 @@ import {
   GoogleAuthProvider,
 } from "firebase/auth";
 import MyPage from "@/components/myPage";
+import { useUser } from "../store/userReducer";
 
-const Auth: React.FC<{ isLoggedIn: Boolean }> = ({ isLoggedIn }) => {
+const Auth = () => {
+  const { isLoggedIn } = useUser();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [newAccount, setNewAccount] = useState(true);
@@ -66,7 +68,7 @@ const Auth: React.FC<{ isLoggedIn: Boolean }> = ({ isLoggedIn }) => {
         <Nav />
         <AuthContainer>
           {isLoggedIn ? (
-            <MyPage isLoggedIn={isLoggedIn} />
+            <MyPage />
           ) : (
             <>
               <AuthForm>
@@ -158,7 +160,6 @@ const Main = styled.section`
     position: relative;
     width: 100%;
     max-width: 420px;
-    min-height: 100vh;
     margin: 0 0 0 calc(50% - 1px);
     zoom: 1.25;
   }
