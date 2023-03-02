@@ -102,10 +102,10 @@ export const WishListProvider: FCC = ({ children }) => {
       ? JSON.parse(storedState)
       : { items: [], isItemInList: {} };
 
-    if (initialState) {
+    if (storedState) {
       dispatch({ type: "SAVE_ITEM", payload: initialState });
     }
-  }, [userObj?.id]);
+  }, [userObj]);
 
   return (
     <WishListContext.Provider value={{ state, dispatch }}>
